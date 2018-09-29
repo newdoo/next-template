@@ -1,0 +1,27 @@
+{
+    "presets": [
+      "next/babel"
+    ],
+    "plugins": [
+      "transform-decorators-legacy",
+      "transform-class-properties",
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./"
+          ],
+          "alias": {
+            "components": "./src/client/components",
+            "styles": "./src/client/styles",
+            "shapes": "./src/client/shapes",
+            "ui": "./src/client/ui",
+            "lib": "./src/client/lib",
+            "common": "./src/common",
+            "src": "./src"
+          }
+        }
+      ]
+    ]
+}
+  
