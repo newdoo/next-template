@@ -1,6 +1,5 @@
 import React from 'react'
 import io from 'socket.io-client'
-import moment from 'moment'
 
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
@@ -9,19 +8,24 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItem'
 import Avatar from '@material-ui/core/Avatar'
+import Paper from '@material-ui/core/Paper'
 
 import { encryption, decipher } from '../lib/crypto'
 import config from '../../common/config.json'
 
 const styles = theme => ({
+  root: {
+    height: '100%',
+    margin: theme.spacing.unit,
+  },
   input: {
     margin: theme.spacing.unit,
+    width: '99%'
   },
   chattingList: {
     width: '100%',
-    height: 300,
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+    height: 400,
+    backgroundColor: '#D9D9D9'
   }
 });
 
@@ -55,7 +59,7 @@ class Chatting extends React.Component {
     const {classes} = this.props;
 
     return (
-      <div>
+      <div className={classes.root}>
         <div className={classes.chattingList}>
           <List>
             {this.state.message.map(value => { console.log(value);
@@ -67,7 +71,7 @@ class Chatting extends React.Component {
           </List>
         </div>
         <Input className={classes.input} placeholder='enter message' inputProps={{'aria-label': 'Description'}} onKeyPress={this.onSendMessage}/>
-       </div>
+      </div>
     )  
   }
 }

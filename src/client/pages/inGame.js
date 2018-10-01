@@ -1,17 +1,14 @@
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import Fade from '@material-ui/core/Fade'
 import Grid from '@material-ui/core/Grid'
 
 import App from "components/app"
 import Scene from './scene'
-import Chatting from 'components/chatting'
+import BettingInfo from 'components/bettingInfo'
+import GameInfo from 'components/gameInfo'
+import Contents from 'components/contents'
 import Game from 'components/game'
 
-const styles = theme => ({
-});
-
-class InGame extends Scene {
+export default class InGame extends Scene {
     state = {};
 
     componentDidMount = async() => {
@@ -24,23 +21,26 @@ class InGame extends Scene {
         return (
         <App>
             <Fade in={this.state.loading}>
-                <Grid container spacing={8}>
-                    <Grid container justify='center' item md={6}>
-                        <Game isMobile={this.state.isMobile}/>
+                <Grid container spacing={0} >
+                    <Grid item container spacing={0} md={8}>
+                        <Grid container>
+                            <Grid item item md>
+                                <Game isMobile={this.state.isMobile}/>
+                            </Grid>
+                            <Grid item item md={3}>
+                                <GameInfo/>
+                            </Grid>
+                        </Grid>
+                        <Grid item md>
+                            <Contents/>
+                        </Grid>
                     </Grid>
-                <Grid container justify='center' item md={6}>
-                    <Chatting/>
+                    <Grid item md>
+                        <BettingInfo/>
+                    </Grid>
                 </Grid>
-          </Grid>
-
             </Fade>
         </App>
         )  
     }
 }
-
-InGame.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(InGame);

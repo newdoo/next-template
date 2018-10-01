@@ -5,7 +5,7 @@ import Fade from '@material-ui/core/Fade'
 
 import App from "components/app"
 import Scene from './scene'
-import UIButton from '../ui/uiButton'
+import UIButton from 'ui/uiButton'
 
 const styles = theme => ({
   menu: {
@@ -16,7 +16,6 @@ const styles = theme => ({
 });
 
 class Index extends Scene {
-  state = {};
 
   componentDidMount = async() => {
     super.componentDidMount();

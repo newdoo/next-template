@@ -1,92 +1,167 @@
 import io from 'socket.io-client'
 import moment from 'moment'
+import { observer } from 'mobx-react'
+import { observable } from 'mobx'
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Paper from '@material-ui/core/Paper'
 
 import config from '../../common/config.json'
 import { encryption, decipher } from '../lib/crypto'
+import DataManager from '../lib/dataManager'
+
+const easing = require('../../common/easing')
 
 const styles = theme => ({
+  root: {
+    height: 250,
+    margin: theme.spacing.unit,
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
+  },
 });
 
-class Game extends React.Component {
-  state = {remainTime: '0.0', serverState: '' };
+@observer class Game extends React.Component {  
+  @observable remainTime = '0.0';
+  @observable result = 0;
+
   history = [];
+  bustInterval = null;
 
   componentDidMount = async() => {
-    this.socket = io(config[process.env.NODE_ENV].inGameURL);
-    this.socket.on('onGameMessage', this.onGameMessage);
+    DataManager.socket = io(config[process.env.NODE_ENV].inGameURL);
+    DataManager.socket.on('onGameInfo', this.onGameInfo);
+    DataManager.socket.on('onGameEnter', this.onGameEnter);
   }
 
-  onGameMessage = async(msg) => {
+  onGameEnter = async(msg) => {
     msg = JSON.parse(await decipher(msg));
+
+    this.updateGameState(msg.roundInfo);
+    DataManager.setStopList(msg.stops);
+    DataManager.setBettingList(msg.bettings);
+  }
+
+  onGameInfo = async(msg) => {
+    this.updateGameState(JSON.parse(await decipher(msg)));
+  }
+
+  updateGameState = msg => {
     console.log(msg);
 
-    this.setState({ serverState: msg.state });
+    DataManager.state = msg.state;
 
     if(msg.state === 'ready') {
-      this.countDown(msg.time);
+      this.onReady(msg);
     } else if(msg.state === 'start') {
-      this.history = this.history.concat(msg);
+      this.onStart(msg);
+    } else if(msg.state === 'bust') {
+      this.onBust(msg);
     }
+
   }
 
-  countDown = time => {
+  onReady = msg => {
+    DataManager.setBetting(false);
+    DataManager.bettingList = [];
+
     const interval = setInterval(() => {
-      const remain = ((time - moment().utc().format('x')) / 1000).toFixed(1);
-      this.setState({ remainTime: remain <= 0 ? '0.0' : remain });
+      const now = moment().utc();
+      const remain = (5 - (now.diff(moment(msg.time)) / 1000)).toFixed(1);
+      this.remainTime = remain <= 0 ? '0.0' : remain;
       
       if(remain < 0) {
-        this.setState({ remainTime: '0.0' });
+        this.remainTime =  '0.0';
         clearInterval(interval);
       }
     }, 100);
   }
 
+  onStart = msg => {
+    let bust = 0;
+    this.bustInterval = setInterval(() => {
+      const now = moment().utc();
+      bust = easing.easeInSine(now.diff(moment(msg.time)), 0, config.bustMaxValue, config.bustMaxTime);
+      DataManager.setBust(bust.toFixed(2));
+    }, 10);
+  }
+
+  onBust = (msg) => {
+    clearInterval(this.bustInterval);
+    this.result = msg.number.toFixed(2);
+    this.history = this.history.concat(msg);
+  }
+
   reqeustHistory = async() => {
-    this.socket.on('onHistoryMessage', async(msg) => {
-      this.socket.removeAllListeners('onHistoryMessage');
+    DataManager.socket.on('onGameHistory', async(msg) => {
+      DataManager.socket.removeAllListeners('onGameHistory');
 
       msg = JSON.parse(await decipher(msg));
       console.log(msg);
     });
 
-    this.socket.emit('onHistoryMessage', await encryption({ start: 10, count: 10 }));
-    //console.log(this.history);
+    DataManager.socket.emit('onGameHistory', await encryption({start: 10, count: 10}));
+  }
+
+  none = () => {
+    const {classes} = this.props;
+
+    return (
+      <CircularProgress className={classes.progress}/>
+    )
   }
 
   ready = () => {
-    const {isMobile} = this.props;
+    const {isMobile, classes} = this.props;
 
     return (
-        <Typography variant={isMobile ? 'display1' : 'display4'}>
-            {this.state.remainTime} sec
-        </Typography>      
+      <Typography variant={isMobile ? 'display1' : 'display4'}>
+        {this.remainTime} sec
+      </Typography>
     )
   }
 
   start = () => {
+    const {isMobile, classes} = this.props;
+
+    return (
+      <Typography variant={isMobile ? 'display1' : 'display4'} align='center'>
+        {DataManager.bust} km
+      </Typography> 
+    )
+  }
+
+  bust = () => {
     const {isMobile} = this.props;
 
     return (
+      <div>
         <Typography variant={isMobile ? 'display1' : 'display4'}>
-            start
+          bust
         </Typography>
-    )
+        <Typography variant='title' color='secondary'>
+          {this.result} km
+        </Typography> 
+        <Typography variant='title'>
+          update : {DataManager.bust}
+        </Typography> 
+      </div>
+    )    
   }
 
   render() {
     const {classes} = this.props;
 
     return (
-      <div>
-        {this.state.serverState === 'ready' ? this.ready() : this.start()}
-        <Button onClick={this.reqeustHistory}>list</Button>
-      </div>
+      <Paper className={classes.root}>
+        {DataManager.state === 'none' ? this.none() : DataManager.state === 'ready' ? this.ready() : DataManager.state === 'start' ? this.start() : DataManager.state == 'bust' ? this.bust() : '' }
+      </Paper>
     )  
   }
 }

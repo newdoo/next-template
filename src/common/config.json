@@ -45,5 +45,7 @@
     "log": true,
     "secret_client": "vipjer#2309f=][]d0#fkFsmn..1@#)(=+=.",
     "secret_server": "v0o3kkv..,=0k,xnmzdlv#$$@_+=1@#4ff()",
-    "port": 9999
+    "port": 9999,
+    "bustMaxTime": 18000,
+    "bustMaxValue": 20
 }

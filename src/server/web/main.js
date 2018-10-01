@@ -6,6 +6,9 @@ const http = require('http')
 const https = require('https')
 const fs = require('fs')
 
+const mobxReact = require('mobx-react')
+mobxReact.useStaticRendering(true)
+
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dir: './src/client', dev })
 const handler = routes.getRequestHandler(app)

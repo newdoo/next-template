@@ -13,6 +13,8 @@
     "express": "^4.16.3",
     "isomorphic-fetch": "^2.2.1",
     "jss": "latest",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.5",
     "moment": "^2.22.2",
     "next": "^6.1.1",
     "next-routes": "^1.4.2",
@@ -20,10 +22,8 @@
     "react": "latest",
     "react-dom": "latest",
     "react-jss": "latest",
-    "react-redux": "^5.0.7",
     "recharts": "^1.1.0",
     "redis": "^2.8.0",
-    "redux": "^4.0.0",
     "request": "^2.87.0",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
@@ -41,7 +41,7 @@
     "dev:start": "cross-env NODE_ENV=development forever start src/server/main.js && forever start src/chatting/main.js",
     "dev:stop": "cross-env NODE_ENV=development forever stop src/server/main.js && forever stop src/chatting/main.js",
     "dev:chatting": "cross-env NODE_ENV=development node src/server/chatting/main.js",
-    "dev:inGame": "cross-env NODE_ENV=development node src/server/game/main.js",
+    "dev:ingame": "cross-env NODE_ENV=development node src/server/game/main.js",
     "deploy": "next build src/client && NODE_ENV=production forever start src/server/main.js"
   },
   "devDependencies": {
