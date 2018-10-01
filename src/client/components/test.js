@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
 import ActionCreator from '../actions'
+import getWeb3 from '../lib/getWeb3'
 
 const styles = theme => ({
   menu: {
@@ -22,6 +23,12 @@ class Test extends React.Component {
   }
 
   componentDidMount = async() => {
+    const web3 = await getWeb3;
+    console.log(await web3.eth.getCoinbase());
+  }
+
+  onExchange = async() => {
+    //await web3.eth.sendTransaction({from: web3.eth.coinbase, to: '0x8ac109ebf85779e4c2495dD8f64d2dABB0473498', value: web3.utils.toWei('1', 'ether')});
   }
 
   render() {
@@ -29,9 +36,10 @@ class Test extends React.Component {
 
     return (
       <div>
-        <Button onClick={() => this.props.updateBalance(1)}>UP</Button>
-        <Button onClick={() => this.props.setBalance(1)}>SET</Button>
-        <Typography>{this.props.balance}</Typography>
+        <Button variant='outlined' onClick={this.onExchange}>GET</Button>
+        <Typography>BIT : {this.props.balance.bit}</Typography>
+        <Typography>ETH : {this.props.balance.eth}</Typography>
+
       </div>
     )  
   }

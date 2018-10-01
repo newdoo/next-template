@@ -27,13 +27,13 @@ class TestSeed extends React.Component {
   }
 
   onCreate = async() => {
-    const recv = await userCreate('bugzero');
+    const recv = await userCreate('doo8866', '1234');
     console.log(recv);
   }
 
   onLogin = async() => {
-    const recv = await userLogin('bugzero');
-    //this.props.setUUID(recv.uuid);
+    const recv = await userLogin('doo8866', '1234');
+    this.props.setUUID(recv.uuid);
     this.props.setNick(recv.nick);
     console.log(recv);
   }
