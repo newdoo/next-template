@@ -1,10 +1,12 @@
+const monent = require('moment')
 const config = require('../../common/config')
 const io = require('socket.io').listen(config.inGameURL.split(':')[2])
+
 const random = require('../utils/random')
-const monent = require('moment');
+const crypto = require('../utils/crypto')
 
 const sleep = ms => new Promise(res => setTimeout(res, ms))
-const send = msg => io.sockets.emit('onGameMessage', msg)
+const send = async(msg) => io.sockets.emit('onGameMessage', await crypto.encryption(msg))
 
 let info = { time: 0, state: 0, number: 0 }
 const setInfo = (time, state, number) => info = { time, state, number }

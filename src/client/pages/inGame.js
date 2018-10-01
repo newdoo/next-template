@@ -9,6 +9,7 @@ import Fade from '@material-ui/core/Fade'
 import App from "components/app"
 import Scene from './scene'
 import config from '../../common/config.json'
+import { encryption, decipher } from '../lib/crypto'
 
 const styles = theme => ({
 });
@@ -25,7 +26,8 @@ class InGame extends Scene {
     this.socket.on('onGameMessage', this.onGameMessage);
   }
 
-  onGameMessage = msg => {
+  onGameMessage = async(msg) => {
+    msg = JSON.parse(await decipher(msg));
     console.log(msg);
 
     this.setState({ serverState: msg.state });
