@@ -102,7 +102,6 @@ const bust = async() => {
     setRoundInfo(undefined, 'bust', roundInfo.number, roundInfo.seed);
     broadcast('onGameInfo', roundInfo);
     
-    await sleep(number * 10);
     await sleep(3000);
 }
       
