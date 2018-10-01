@@ -11,6 +11,7 @@ const toJson = data => JSON.parse(data)
 
 module.exports = async(req, res) => {
   try {
+    console.log('q');
     const recv = await decipher(req.params.msg.toString('hex'));
     console.log('\nrecv => \n' + req.params.id + ' : ' + recv);
 
@@ -21,6 +22,7 @@ module.exports = async(req, res) => {
     res.json(result);   
     console.log('\nsend => \n' + JSON.stringify(result));
   } catch (e) {
+    console.log('qq');
     res.json({result: 'error', message: e.message});
   }
 }

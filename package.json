@@ -1,5 +1,5 @@
 {
-  "name": "webServerStarterKit",
+  "name": "next-template",
   "version": "0.9.1",
   "private": true,
   "dependencies": {
@@ -13,22 +13,26 @@
     "express": "^4.16.3",
     "isomorphic-fetch": "^2.2.1",
     "jss": "latest",
-    "mobx": "^5.0.3",
-    "mobx-react": "^5.2.3",
     "moment": "^2.22.2",
     "next": "^6.1.1",
     "next-routes": "^1.4.2",
-    "npm": "^6.1.0",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-jss": "latest",
+    "react-redux": "^5.0.7",
     "redis": "^2.8.0",
+    "redux": "^4.0.0",
     "request": "^2.87.0",
     "styled-components": "^3.3.3",
     "truffle-contract": "^3.0.6",
     "truffle-hdwallet-provider": "0.0.5",
-    "web3": "^1.0.0-beta.34"
+    "web3": "^1.0.0-beta.34",
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.9.0",
+    "koa-static": "^5.0.0"
   },
   "scripts": {
     "dev": "cross-env PORT=9999 NODE_ENV=development node src/server/main.js",

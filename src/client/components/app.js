@@ -1,14 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Provider } from 'mobx-react'
-import { observer } from 'mobx-react'
-import { observable } from 'mobx'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import moment from 'moment'
-
 import withRoot from 'lib/withRoot'
-import dataManager from 'lib/dataManager'
-
+import reducers from '../reducers'
 
 const styles = {
   root: {
@@ -22,26 +19,23 @@ const styles = {
   }
 }
 
-@observer class App extends React.Component {
-  @observable loading = false;
+class App extends React.Component {
+  state = { loading : false };
 
-  constructor(props){
-    super(props);
-    this.dataManager = dataManager;
-  }
-  
+
   componentDidMount() {
     moment.locale(navigator.language);
-    this.loading = true;
+    this.setState({loading: true});
   }
 
   render() {
     const {classes} = this.props;
 
-    return this.loading === false ? '' : 
+    return this.state.loading === false ? '' : 
     (
-      <Provider dataManager={dataManager}>
-        <div className={classes.root} style={{background: 'linear-gradient(to right bottom, #646464, #AAAAAA)', minHeight: '100vh'}}>
+      <Provider store={createStore(reducers)}>
+        <div className={classes.root} style={{background: 'linear-gradient(to right bottom, #A0A0A0, #D0D0D0)', minHeight: '100vh'}}>
+
           <main>
             <div className={classes.view}>
               {this.props.children}

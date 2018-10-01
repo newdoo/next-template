@@ -1,6 +1,3 @@
-import { observer } from 'mobx-react'
-import { observable } from 'mobx'
-
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -8,6 +5,7 @@ import Fade from '@material-ui/core/Fade'
 
 import App from "components/app"
 import Scene from './scene'
+import Test from 'components/test'
 
 const styles = theme => ({
   menu: {
@@ -17,12 +15,12 @@ const styles = theme => ({
   }
 });
 
-@observer class Index extends Scene {
-  @observable fadeInOut = false;
+class Index extends Scene {
+  state = { fadeInOut: false };
 
   componentDidMount = async() => {
     super.componentDidMount();
-    this.fadeInOut = true;
+    this.setState({ fadeInOut: true });
   }
 
   render() {
@@ -30,13 +28,15 @@ const styles = theme => ({
 
     return (
       <App>
-        <Fade in={this.fadeInOut}>
-          <Typography variant={this.isMobile ? 'display1' : 'display4'}>
-            Numix Block Chain
+        <Fade in={this.state.fadeInOut}>
+          <Typography variant={this.state.isMobile ? 'display1' : 'display4'}>
+
+            Next-Template
           </Typography>
         </Fade>
 
         <div className={classes.menu}>
+          <Test/>
         </div>
       </App>
     )  

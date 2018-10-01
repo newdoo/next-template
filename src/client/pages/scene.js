@@ -1,12 +1,10 @@
 import React from 'react'
-import { observer } from 'mobx-react'
-import { observable } from 'mobx'
 
-@observer export default class Scene extends React.Component {
-  @observable isMobile = false;
+export default class Scene extends React.Component {
+  state = { isMobile: false }
 
   componentDidMount() {
-    this.isMobile = this.mobileCheck();
+    this.setState({ isMobile: this.mobileCheck() });
   }
 
   mobileCheck = () => {

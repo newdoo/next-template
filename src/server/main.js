@@ -9,13 +9,10 @@ const fs = require('fs')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dir: './src/client', dev })
 const handler = routes.getRequestHandler(app)
-const mobxReact = require('mobx-react')
 
 const api = require('./api/handler')
 const config = require('../common/config')
 const trustIP = require('./utils/trustIP')
-
-mobxReact.useStaticRendering(true)
 
 app.prepare().then(() => {
   const server = express();
@@ -33,7 +30,12 @@ app.prepare().then(() => {
 
   server.get('/admin', (req, res) => trustIP(req) === true ? app.render(req, res, '/admin') : app.render(req, res, '/'));
 
-  server.get('*', (req, res) => handler(req, res));
+  server.get('*', (req, res) => {
+    //console.log('aaa');
+    //console.log(req);
+    //console.log(res);
+    handler(req, res);
+  });
 
   dev !== 'production' ? createHttpServer(server) : createHttpsServer(server);
 });
