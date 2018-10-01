@@ -28,6 +28,7 @@
     "truffle-contract": "^3.0.6",
     "truffle-hdwallet-provider": "0.0.5",
     "web3": "^1.0.0-beta.34",
+    "uuid": "^3.3.2",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",

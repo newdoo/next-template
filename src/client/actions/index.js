@@ -1,7 +1,9 @@
 import * as balanceAction from './balanceAction'
+import * as userAction from './userAction'
 
 const ActionCreators = Object.assign({},
-  balanceAction
+  balanceAction,
+  userAction
 );
 
 export default ActionCreators

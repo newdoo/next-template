@@ -6,6 +6,7 @@ import Fade from '@material-ui/core/Fade'
 import App from "components/app"
 import Scene from './scene'
 import Test from 'components/test'
+import Test_Seed from 'components/test_seed'
 
 const styles = theme => ({
   menu: {
@@ -37,6 +38,7 @@ class Index extends Scene {
 
         <div className={classes.menu}>
           <Test/>
+          <Test_Seed/>
         </div>
       </App>
     )  

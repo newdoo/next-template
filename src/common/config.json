@@ -3,12 +3,12 @@
     "production": {
         "key": "privkey.pem",
         "cert": "fullchain.pem",
-        "serverURL": "http://192.168.1.182:15385/api",
+        "serverURL": "http://192.168.1.55:9999/api",
         "ethereumNetworkType": "development",
         "eosNetworkType": "development"
     },
     "development": {
-        "serverURL": "http://192.168.1.182:15385/api",
+        "serverURL": "http://192.168.1.55:9999/api",
         "ethereumNetworkType": "development",
         "eosNetworkType": "development"
     },
