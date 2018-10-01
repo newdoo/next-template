@@ -49,10 +49,10 @@ MyDocument.getInitialProps = ctx => {
   const pageContext = getPageContext();
   const page = ctx.renderPage(Component => props => (
     <JssProvider
-      registry={pageContext.sheetsRegistry}
-      generateClassName={pageContext.generateClassName}
+      registry={ pageContext.sheetsRegistry }
+      generateClassName={ pageContext.generateClassName }
     >
-      <Component pageContext={pageContext} {...props} />
+      <Component pageContext={ pageContext } { ...props } />
     </JssProvider>
   ));
 
@@ -66,7 +66,7 @@ MyDocument.getInitialProps = ctx => {
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: pageContext.sheetsRegistry.toString() }}
         />
-        {flush() || null}
+        { flush() || null }
       </React.Fragment>
     ),
   };

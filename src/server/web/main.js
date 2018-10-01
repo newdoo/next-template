@@ -1,7 +1,7 @@
 const express = require('express')
 var compression = require('compression')
 const next = require('next')
-const routes = require('../common/routes')
+const routes = require('../../common/routes')
 const http = require('http')
 const https = require('https')
 const fs = require('fs')
@@ -11,8 +11,8 @@ const app = next({ dir: './src/client', dev })
 const handler = routes.getRequestHandler(app)
 
 const api = require('./api/handler')
-const config = require('../common/config')
-const trustIP = require('./utils/trustIP')
+const config = require('../../common/config')
+const trustIP = require('../utils/trustIP')
 
 app.prepare().then(() => {
   const server = express();

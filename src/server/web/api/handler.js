@@ -1,6 +1,6 @@
 const crypto = require('crypto-promise')
-const config = require('../../common/config')
-const trustIP = require('../utils/trustIP')
+const config = require('../../../common/config')
+const trustIP = require('../../utils/trustIP')
 
 const router = {table: require('./table'), user: require('./user')}
 
@@ -23,6 +23,6 @@ module.exports = async(req, res) => {
     console.log('\nsend : ' + JSON.stringify(result));
   } catch (e) {
     console.log('qq');
-    res.json({result: e.message});
+    res.json({ result: e.message });
   }
 }

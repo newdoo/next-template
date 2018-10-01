@@ -1,4 +1,4 @@
-const redis = require('../utils/redis')
+const redis = require('../../utils/redis')
 const uuidv4 = require('uuid/v4')
 const moment = require('moment')
 

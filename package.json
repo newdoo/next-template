@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "^1.1.0",
+    "animejs": "^2.2.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "bip39": "^2.5.0",
     "compression": "^1.7.2",
@@ -20,6 +21,7 @@
     "react-dom": "latest",
     "react-jss": "latest",
     "react-redux": "^5.0.7",
+    "recharts": "^1.1.0",
     "redis": "^2.8.0",
     "redux": "^4.0.0",
     "request": "^2.87.0",
@@ -35,9 +37,12 @@
     "koa-static": "^5.0.0"
   },
   "scripts": {
-    "dev": "cross-env PORT=9999 NODE_ENV=development node src/server/main.js",
-    "start": "next build src/client && cross-env PORT=9999 NODE_ENV=production node src/server/main.js",
-    "chatting": "cross-env node src/chatting/main.js"
+    "dev:web": "cross-env PORT=9999 NODE_ENV=development node src/server/web/main.js",
+    "dev:start": "cross-env PORT=9999 NODE_ENV=development forever start src/server/main.js && forever start src/chatting/main.js",
+    "dev:stop": "cross-env PORT=9999 NODE_ENV=development forever stop src/server/main.js && forever stop src/chatting/main.js",
+    "dev:chatting": "cross-env node src/server/chatting/main.js",
+    "dev:game": "cross-env node src/server/game/main.js",
+    "deploy": "next build src/client && PORT=9999 NODE_ENV=production forever start src/server/main.js"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",

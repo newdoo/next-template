@@ -41,5 +41,6 @@
     "secret_server": "v0o3kkv..,=0k,xnmzdlv#$$@_+=1@#4ff()",
     "port": 9999,
     "chatting_server": "http://192.168.1.55",
-    "chatting_port": 12345
+    "chatting_port": 12345,
+    "inGameURL": "http://192.168.1.55:12346"
 }
