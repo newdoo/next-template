@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Fade from '@material-ui/core/Fade'
+import TextField from '@material-ui/core/TextField'
 
 import App from "components/app"
 import Scene from './scene'
@@ -21,7 +22,7 @@ const styles = theme => ({
 });
 
 class Index extends Scene {
-  state = {fadeInOut: false, socket: null};
+  state = {fadeInOut: false, socket: null, message: ''};
 
   componentDidMount = async() => {
     super.componentDidMount();
@@ -34,7 +35,11 @@ class Index extends Scene {
   }
 
   onSendMessage = () => {
-    this.socket.emit('chatting', {room: 1, message: '123'});
+    this.socket.emit('chatting', {room: 1, message: this.state.message});
+  }
+
+  onMessage = event => {
+    this.setState({message: event.target.value});
   }
 
   render() {
@@ -52,6 +57,13 @@ class Index extends Scene {
         <div className={classes.menu}>
           <Test/>
           <Test_Seed/>
+          <TextField
+            id="name"
+            //label="input"
+            //className={classes.textField}
+            onChange={this.onMessage}
+            margin="normal"
+          />
           <Button onClick={this.onSendMessage}>Send</Button>
         </div>
       </App>

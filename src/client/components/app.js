@@ -7,6 +7,8 @@ import moment from 'moment'
 import withRoot from 'lib/withRoot'
 import reducers from '../reducers'
 
+const store = createStore(reducers);
+
 const styles = {
   root: {
     background: '#263238',
@@ -33,7 +35,7 @@ class App extends React.Component {
 
     return this.state.loading === false ? '' : 
     (
-      <Provider store={createStore(reducers)}>
+      <Provider store={store}>
         <div className={classes.root} style={{background: 'linear-gradient(to right bottom, #A0A0A0, #D0D0D0)', minHeight: '100vh'}}>
 
           <main>

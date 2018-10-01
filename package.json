@@ -9,7 +9,6 @@
     "bip39": "^2.5.0",
     "compression": "^1.7.2",
     "crypto-promise": "^2.1.0",
-    "eosjs": "^15.0.3",
     "express": "^4.16.3",
     "isomorphic-fetch": "^2.2.1",
     "jss": "latest",
@@ -27,8 +26,6 @@
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "styled-components": "^3.3.3",
-    "truffle-contract": "^3.0.6",
-    "truffle-hdwallet-provider": "0.0.5",
     "web3": "^1.0.0-beta.34",
     "uuid": "^3.3.2",
     "koa": "^2.5.3",
@@ -41,7 +38,6 @@
     "dev": "cross-env PORT=9999 NODE_ENV=development node src/server/main.js",
     "start": "next build src/client && cross-env PORT=9999 NODE_ENV=production node src/server/main.js",
     "chatting": "cross-env node src/chatting/main.js"
-
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
