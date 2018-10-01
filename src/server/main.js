@@ -16,7 +16,7 @@ const trustIP = require('./utils/trustIP')
 
 app.prepare().then(() => {
   const server = express();
-  server.use(express.urlencoded({extended : true}));
+  server.use(express.urlencoded({ extended : true }));
   server.use(compression());
 
   server.get('/api/:id/:msg', (req, res) => {

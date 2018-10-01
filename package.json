@@ -24,6 +24,8 @@
     "redis": "^2.8.0",
     "redux": "^4.0.0",
     "request": "^2.87.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1",
     "styled-components": "^3.3.3",
     "truffle-contract": "^3.0.6",
     "truffle-hdwallet-provider": "0.0.5",
@@ -37,7 +39,9 @@
   },
   "scripts": {
     "dev": "cross-env PORT=9999 NODE_ENV=development node src/server/main.js",
-    "start": "next build src/client && cross-env PORT=9999 NODE_ENV=production node src/server/main.js"
+    "start": "next build src/client && cross-env PORT=9999 NODE_ENV=production node src/server/main.js",
+    "chatting": "cross-env node src/chatting/main.js"
+
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",

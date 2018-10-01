@@ -38,5 +38,7 @@
     "trustIP": [],
     "log": true,
     "secret": "vss!32lk",
-    "port": 9999
+    "port": 9999,
+    "chatting_server": "http://192.168.1.55",
+    "chatting_port": 12345
 }
