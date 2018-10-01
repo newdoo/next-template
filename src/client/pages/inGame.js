@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Fade from '@material-ui/core/Fade'
+import Button from '@material-ui/core/Button'
 
 import App from "components/app"
 import Scene from './scene'
@@ -15,57 +16,87 @@ const styles = theme => ({
 });
 
 class InGame extends Scene {
-  state = { fadeInOut: false, isStart: false, remainTime: '0.0', serverState: '' };
+    state = { fadeInOut: false, remainTime: '0.0', serverState: '' };
+    history = [];
 
-  componentDidMount = async() => {
-    super.componentDidMount();
-    this.setState({ fadeInOut: true });
-    
-    this.socket = io(config.inGameURL);
-    this.socket.on('onConnection', recv => this.connected = recv.type === 'connected' ? true : false);
-    this.socket.on('onGameMessage', this.onGameMessage);
-  }
-
-  onGameMessage = async(msg) => {
-    msg = JSON.parse(await decipher(msg));
-    console.log(msg);
-
-    this.setState({ serverState: msg.state });
-
-    if(msg.state === 'ready') {
-      this.updateReady(msg.time);
+    componentDidMount = async() => {
+        super.componentDidMount();
+        this.setState({ fadeInOut: true });
+        
+        this.socket = io(config[process.env.NODE_ENV].inGameURL);
+        this.socket.on('onGameMessage', this.onGameMessage);
     }
-  }
 
-  updateReady = time => {
-    const interval = setInterval(() => {
-      const remain = ((time - moment().utc().valueOf()) / 1000).toFixed(1);
-      this.setState({ remainTime: remain <= 0 ? '0.0' : remain });
+    onGameMessage = async(msg) => {
+        msg = JSON.parse(await decipher(msg));
+        console.log(msg);
+
+        this.setState({ serverState: msg.state });
+
+        if(msg.state === 'ready') {
+            this.countDown(msg.time);
+        } else if(msg.state === 'start') {
+            this.history = this.history.concat(msg);
+        }
       
-      if(remain < 0) {
-        this.setState({ remainTime: '0.0' });
-        clearInterval(interval);
-      }
-    }, 100);
-  }
+    }
 
-  render() {
-    const { classes } = this.props;
+    countDown = time => {
+        const interval = setInterval(() => {
+        const remain = ((time - moment().utc().format('x')) / 1000).toFixed(1);
+        this.setState({ remainTime: remain <= 0 ? '0.0' : remain });
+        
+        if(remain < 0) {
+            this.setState({ remainTime: '0.0' });
+            clearInterval(interval);
+        }
+        }, 100);
+    }
 
-    return (
-      <App>
-        <Fade in={ this.state.fadeInOut }>
+    reqeustHistory = async() => {
+        this.socket.on('onHistoryMessage', async(msg) => {
+          this.socket.removeAllListeners('onHistoryMessage');
+    
+          msg = JSON.parse(await decipher(msg));
+          console.log(msg);
+        });
+    
+        this.socket.emit('onHistoryMessage', await encryption({ start: 10, count: 10 }));
+        //console.log(this.history);
+    }
+    
+    ready = () => {
+        return (
           <Typography variant={ this.state.isMobile ? 'display1' : 'display4' }>
             { this.state.remainTime } sec
+          </Typography>      
+        )
+    }
+    
+    start = () => {
+        return (
+          <Typography variant={ this.state.isMobile ? 'display1' : 'display4' }>
+            start
           </Typography>
+        )
+    }
+    
+    
 
-          {/* { this.state.serverState === 'ready' ?
-            <Typography>{ this.state.remainTime }</Typography> : ''
-          } */}
-        </Fade>
-      </App>
-    )  
-  }
+    render() {
+        const { classes } = this.props;
+
+        return (
+        <App>
+            <Fade in={ this.state.fadeInOut }>
+                <div>
+                    { this.state.serverState === 'ready' ? this.ready() : this.start() }
+                    <Button onClick={this.reqeustHistory}>list</Button>
+                </div>
+            </Fade>
+        </App>
+        )  
+    }
 }
 
 InGame.propTypes = {

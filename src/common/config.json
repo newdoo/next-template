@@ -5,12 +5,18 @@
         "cert": "fullchain.pem",
         "serverURL": "http://192.168.1.55:9999/api",
         "ethereumNetworkType": "development",
-        "eosNetworkType": "development"
+        "eosNetworkType": "development",
+        "redisURL": "localhost:6379",
+        "chattingURL": "http://192.168.1.55:12345",
+        "inGameURL": "http://192.168.1.55:12346"
     },
     "development": {
-        "serverURL": "http://192.168.1.55:9999/api",
+        "serverURL": "http://localhost:9999/api",
         "ethereumNetworkType": "development",
-        "eosNetworkType": "development"
+        "eosNetworkType": "development",
+        "redisURL": "localhost:6379",
+        "chattingURL": "http://192.168.1.55:12345",
+        "inGameURL": "http://192.168.1.55:12346"
     },
     "eosNetwork": {
         "development": {
@@ -39,8 +45,5 @@
     "log": true,
     "secret_client": "vipjer#2309f=][]d0#fkFsmn..1@#)(=+=.",
     "secret_server": "v0o3kkv..,=0k,xnmzdlv#$$@_+=1@#4ff()",
-    "port": 9999,
-    "chatting_server": "http://192.168.1.55",
-    "chatting_port": 12345,
-    "inGameURL": "http://192.168.1.55:12346"
+    "port": 9999
 }

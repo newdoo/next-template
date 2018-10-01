@@ -37,12 +37,12 @@
     "koa-static": "^5.0.0"
   },
   "scripts": {
-    "dev:web": "cross-env PORT=9999 NODE_ENV=development node src/server/web/main.js",
-    "dev:start": "cross-env PORT=9999 NODE_ENV=development forever start src/server/main.js && forever start src/chatting/main.js",
-    "dev:stop": "cross-env PORT=9999 NODE_ENV=development forever stop src/server/main.js && forever stop src/chatting/main.js",
+    "dev:web": "cross-env NODE_ENV=development node src/server/web/main.js",
+    "dev:start": "cross-env NODE_ENV=development forever start src/server/main.js && forever start src/chatting/main.js",
+    "dev:stop": "cross-env NODE_ENV=development forever stop src/server/main.js && forever stop src/chatting/main.js",
     "dev:chatting": "cross-env node src/server/chatting/main.js",
-    "dev:game": "cross-env node src/server/game/main.js",
-    "deploy": "next build src/client && PORT=9999 NODE_ENV=production forever start src/server/main.js"
+    "dev:inGame": "cross-env NODE_ENV=development node src/server/game/main.js",
+    "deploy": "next build src/client && NODE_ENV=production forever start src/server/main.js"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
