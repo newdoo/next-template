@@ -16,11 +16,10 @@ const styles = theme => ({
 });
 
 class Index extends Scene {
-  state = { fadeInOut: false, socket: null, message: '', value: 0, data: [], cur: 1, old: 0 };
+  state = {};
 
   componentDidMount = async() => {
     super.componentDidMount();
-    this.setState({ fadeInOut: true });
   }
 
   render() {
@@ -28,8 +27,8 @@ class Index extends Scene {
 
     return (
       <App>
-        <Fade in={ this.state.fadeInOut }>
-          <Typography variant={ this.state.isMobile ? 'display1' : 'display4' }>
+        <Fade in={this.state.loading}>
+          <Typography variant={this.state.isMobile ? 'display1' : 'display4'}>
             Next-Template
           </Typography>
         </Fade>
