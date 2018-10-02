@@ -16,7 +16,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content={pageContext.theme.palette.primary.main} />
           
           <link rel="icon" href="./static/favicon.ico" type="image/png" sizes="16x16"/>
-          <link href="https://fonts.googleapis.com/css?family=Orbitron:400,700" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css?family=Orbitron:400,700|PT+Sans:700" rel="stylesheet"/>
         </Head>
         <body>
           <Main />

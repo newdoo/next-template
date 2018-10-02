@@ -1,6 +1,6 @@
 import Web3 from 'web3'
-import config from '../../common/config.json'
-
+import config from 'common/config.json'
+ 
 const networkType = config[process.env.NODE_ENV].ethereumNetworkType
 
 const getWeb3 = new Promise(function(resolve, reject) {

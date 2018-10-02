@@ -8,30 +8,25 @@ import Scene from './scene'
 import UIButton from 'ui/uiButton'
 
 const styles = theme => ({
-  menu: {
-    width: '100%',
-    paddingTop: '10%',
-    padding: theme.spacing.unit * 4,
-  }
 });
 
 class Index extends Scene {
-
   componentDidMount = async() => {
     super.componentDidMount();
-  }
+  } 
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
       <App>
         <Fade in={this.state.loading}>
           <Typography variant={this.state.isMobile ? 'display1' : 'display4'}>
-            Next-Template
+            NEXT-TEMPLATE
           </Typography>
         </Fade>
-        <UIButton link='ingame'>GO</UIButton>
+
+        <UIButton link='stop'>GO</UIButton>
       </App>
     )  
   }

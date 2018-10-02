@@ -1,52 +1,32 @@
 {
-    "name": "numix web server",
-    "production": {
-        "key": "privkey.pem",
-        "cert": "fullchain.pem",
-        "serverURL": "http://192.168.1.55:9999/api",
-        "ethereumNetworkType": "development",
-        "eosNetworkType": "development",
-        "redisURL": "localhost:6379",
-        "chattingURL": "http://192.168.1.55:12345",
-        "inGameURL": "http://192.168.1.55:12346"
-    },
-    "development": {
-        "serverURL": "http://localhost:9999/api",
-        "ethereumNetworkType": "development",
-        "eosNetworkType": "development",
-        "redisURL": "localhost:6379",
-        "chattingURL": "http://192.168.1.55:12345",
-        "inGameURL": "http://192.168.1.55:12346"
-    },
-    "eosNetwork": {
-        "development": {
-            "url": "http://192.168.1.182:8888",
-            "keyProvider": [
-                "5JeiZsMyZwCydRDVrLtNk6bDZ5mHZ6bqcAZjtowaY4DPhL2HkBt",
-                "5JxtqEtKS1RZA7UbL4JhGAAzCFeV8XKja5cmqtwCAzGse82mHde"
-            ]
-        }
-    },
-    "ethereumNetwork": {
-        "development": {
-            "url": "http://192.168.1.182:8545",
-            "mnemonic": "arena phrase fantasy kid measure dinosaur all level shy enroll medal equal"
-        },
-        "ropsten": {
-            "url": "https://ropsten.infura.io/FcJZRA3fYFr1fil0r5WT",
-            "mnemonic": "arena phrase fantasy kid measure dinosaur all level shy enroll medal equal"
-        },
-        "mainnet": {
-            "url": "https://mainnet.infura.io/FcJZRA3fYFr1fil0r5WT",
-            "mnemonic": "arena phrase fantasy kid measure dinosaur all level shy enroll medal equal"
-        }
-    },
-    "trustIP": [],
-    "log": true,
-    "secret_client": "vipjer#2309f=][]d0#fkFsmn..1@#)(=+=.",
-    "secret_server": "v0o3kkv..,=0k,xnmzdlv#$$@_+=1@#4ff()",
-    "port": 9999,
-    "bustMaxTime": 72000,
-    "bustMaxValue": 100,
-    "bettingValue": 100
+  "name": "numix web server",
+  "production": {
+    "key": "privkey.pem",
+    "cert": "fullchain.pem",
+    "serverURL": "http://192.168.1.55:9999/api",
+    "chattingURL": "http://192.168.1.55:12345",
+    "gameStopURL": "http://192.168.1.55:12346",
+    "bitcoinNetwork": 3,
+    "mongodb": "mongodb://admin:!numix0083!@192.168.1.182:20083,192.168.1.182:20085/admin?replicaSet=rs1"
+  },
+  "development": {
+    "serverURL": "http://192.168.1.55:9999/api",
+    "chattingURL": "http://192.168.1.55:12345",
+    "gameStopURL": "http://192.168.1.55:12346",
+    "bitcoinNetwork": 3,
+    "mongodb": "mongodb://localhost:27017"
+  },
+  "game": {
+    "stop": {
+      "bustMaxTime": 38000,
+      "bustMaxValue": 100,
+      "bettingValue": 100
+    }
+  },
+  "createServer": "http",
+  "trustIP": [],
+  "log": true,
+  "secret_client": "vipjer#2309f=][]d0#fkFsmn..1@#)(=+=.",
+  "secret_server": "v0o3kkv..,=0k,xnmzdlv#$$@_+=1@#4ff()",
+  "port": 9999
 }

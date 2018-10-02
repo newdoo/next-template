@@ -1,19 +1,15 @@
 import React from 'react'
 import io from 'socket.io-client'
-import { observer } from 'mobx-react'
-import { observable, action, computed } from 'mobx'
+import moment from 'moment'
+import { connect } from 'react-redux'
 
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Input from '@material-ui/core/Input'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItem'
-import Avatar from '@material-ui/core/Avatar'
+import Typography from '@material-ui/core/Typography'
 
-import { encryption, decipher } from '../lib/crypto'
-import config from '../../common/config.json'
-import DataManager from '../lib/dataManager'
+import config from 'common/config.json'
 
 const styles = theme => ({
   input: {
@@ -26,31 +22,36 @@ const styles = theme => ({
     backgroundColor: '#F0F0F0',
     overflow: 'auto'
   },
-  avatar: {
-    margin: 0,
-    width: 20,
-    height: 20,
-  },
   item: {
-    color: '#E9673C',
-  }
+    marginLeft: 10,
+    width: '98%',
+    '.ul': {
+        transform: 'rotate("180deg")'
+      },
+      'ul > li': {
+        transform: 'rotate("-180deg")'
+    }
+  },
 });
 
-@observer class Chatting extends React.Component {
-  @observable map = new Map();
-
-  @action add = msg => this.map.set(msg.id, msg)
-  @computed get message() {return Array.from(this.map.values())}
+class Chatting extends React.Component {
+  state = {chattingList: []}
 
   componentDidMount = async() => {
     this.socket = io(config[process.env.NODE_ENV].chattingURL);
     this.socket.on('onChattingMessage', this.onChattingMessage);
-    this.socket.on('onChannel', {channel: navigator.language});
+    this.socket.on('onList', this.onList)
+    this.socket.emit('onChannel', {channel: 1});
+  }
+
+  onList = msg => {
+    msg = msg.map(v => JSON.parse(v));
+    this.setState({chattingList: msg.map(v => {return {id: v.date, ...v}})});
+    this.socket.removeAllListeners('onList');
   }
 
   onChattingMessage = async(msg) => {
-    msg = JSON.parse(await decipher(msg));
-    this.add({id: this.message.length, ...msg});
+    this.setState({chattingList: this.state.chattingList.concat({id: msg.date, ...msg})});
   }
 
   onSendMessage = async(event) => {
@@ -60,8 +61,9 @@ const styles = theme => ({
       if(message === '') return;
       event.target.value = '';
 
-      this.socket.emit('onChattingMessage', await encryption({channel: navigator.language, nick: DataManager.nick(), message}));
-      this.add({id: this.message.length, nick: DataManager.nick(), message});
+      const temp = {channel: 1, nick: this.props.user.nick, date: moment().valueOf(), message}
+      this.socket.emit('onChattingMessage', temp);
+      this.onChattingMessage(temp);
     }
   }
 
@@ -69,20 +71,16 @@ const styles = theme => ({
     const {classes} = this.props;
 
     return (
-      <React.Fragment>
+      <div>
         <List className={classes.root}>
-        {
-          this.message.map(value => {
-              return (
-                <ListItem dense key={value.id}>
-                  <ListItemText primary={value.nick + ' : ' + value.message}/>
-                </ListItem>
-              )
-            })
+          {
+            this.state.chattingList.map(value => (
+                <Typography key={value.id} align='left' className={classes.item}>{value.nick + ' : ' + value.message}</Typography>
+            ))
           }
         </List>
-        <Input className={classes.input} disabled={DataManager.nick() === '' ? true : false}placeholder='enter message' inputProps={{'aria-label': 'Description'}} onKeyPress={this.onSendMessage}/>
-      </React.Fragment>
+        <Input className={classes.input} disabled={this.props.user.nick === '' ? true : false} placeholder='enter message' inputProps={{'aria-label': 'Description'}} onKeyPress={this.onSendMessage}/>
+      </div>
     )  
   }
 }
@@ -91,4 +89,5 @@ Chatting.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Chatting);
+const mapStateToProps = (state) => {return {user: state.user}}
+export default withStyles(styles)(connect(mapStateToProps, null)(Chatting));

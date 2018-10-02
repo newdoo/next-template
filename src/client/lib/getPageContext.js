@@ -22,7 +22,7 @@ const theme = createMuiTheme({
   // },
   typography: {
     fontFamily: [
-      'Orbitron', 'sans-serif'
+      'PT Sans', 'sans-serif'
     ].join(','),
     fontWeightMedium: 400,
     display1: {

@@ -1,6 +1,6 @@
 import { encryption, decipher } from './crypto'
 import 'isomorphic-fetch'
-import config from '../../common/config.json' 
+import config from 'common/config.json' 
 
 const serverURL = config[process.env.NODE_ENV].serverURL
 

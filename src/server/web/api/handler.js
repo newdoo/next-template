@@ -1,7 +1,7 @@
 const crypto = require('../../utils/crypto')
 const trustIP = require('../../utils/trustIP')
 
-const router = {table: require('./table'), user: require('./user')}
+const router = { history: require('./history'), user: require('./user'), wallet: require('./wallet') }
 const permission = {}
 
 const toJson = data => JSON.parse(data)
@@ -18,7 +18,6 @@ module.exports = async(req, res) => {
     res.json(await crypto.encryption(result));
     console.log('\nsend : ' + JSON.stringify(result));
   } catch (e) {
-    console.log('qq');
-    res.json({ result: e.message });
+    res.json(await crypto.encryption({result: e.message}));
   }
 }

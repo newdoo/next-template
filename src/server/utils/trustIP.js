@@ -1,5 +1,3 @@
-const dev = process.env.NODE_ENV !== 'production'
-
 module.exports = req => {
   let ip;
   if (req.headers['x-forwarded-for'])
@@ -11,5 +9,5 @@ module.exports = req => {
 
   ip = (ip.length < 15 ? ip : (ip.substr(0, 7) === '::ffff:' ? ip.substr(7) : undefined));
 
-  return dev === 'development' ? true : true;
+  return process.env.NODE_ENV === 'development' ? true : true;
 }

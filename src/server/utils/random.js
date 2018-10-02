@@ -7,4 +7,5 @@ const randomRange = (min, max, seed) => new Promise((resolve) => {
     resolve(parseInt(value.toString('hex'), 16) % (max - min) + min);
   });
 })
+
 module.exports = { seed, randomRange }
