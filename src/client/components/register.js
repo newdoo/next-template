@@ -27,12 +27,12 @@ const styles = theme => ({
 
   onCreate = async() => {
     const recv = await userCreate(this.inputNick, '1234');
-    DataManager.setNick(recv.nick);
+    DataManager.setUser(recv.nick, recv.balance);
   }
 
   onLogin = async() => {
     const recv = await userLogin(this.inputNick, '1234'); 
-    DataManager.setNick(recv.nick);
+    DataManager.setUser(recv.nick, recv.balance);
   }
 
   onInputNick = async(event) => this.inputNick = event.target.value;

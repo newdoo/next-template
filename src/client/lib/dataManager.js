@@ -1,23 +1,28 @@
-import { action, observable } from 'mobx'
+import { action, observable, computed } from 'mobx'
 
 class DataManager {
-  @observable nick = ''
-  @observable bust = 0;
-  @observable state = 'none'
-  @observable isBetting = false
-  @observable bettingList = []
-  @observable stopList = []
-  @observable selectSub = 0
-
   socket = null;
 
+  @observable user = {nick: '', balance: 0}
+  @observable bust = 0;
+  @observable state = 'none'
+  @observable selectSub = 0
+  @observable bettings = new Map()
+  @observable historys = new Map()
+
+  balance = () => this.user.balance
+  nick = () => this.user.nick
+
+  @action setHistory = msg => msg.forEach(i => this.historys.set(i.seed, i))
+  @computed get historyList() {return Array.from(this.historys.values())}
+
+  @action addBettingData = msg => this.bettings.set(msg.nick, msg)
+  @computed get bettingList() {return Array.from(this.bettings.values())}
+
   @action setSelectSub = select => this.selectSub = select
-  @action setStopList = list => this.stopList = list
-  @action setBettingList = list => this.bettingList = list
-  @action setBetting = bet => this.isBetting = bet
-  @action setState = state => this.state = state 
+  @action setState = state => this.state = state
   @action setBust = bust => this.bust = bust
-  @action setNick = nick => this.nick = nick
+  @action setUser = (nick, balance) => this.user = {nick, balance}
 }
 
 let instance = null;

@@ -101,6 +101,9 @@ const start = async() => {
 const bust = async() => {
     setRoundInfo(undefined, 'bust', roundInfo.number, roundInfo.seed);
     broadcast('onGameInfo', roundInfo);
+
+    bettings = [];
+    stops = [];  
     
     await sleep(3000);
 }

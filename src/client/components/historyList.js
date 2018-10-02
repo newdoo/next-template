@@ -1,17 +1,23 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { observable } from 'mobx'
+import moment from 'moment'
 
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+
+import DataManager from 'lib/dataManager'
 
 const styles = theme => ({
   root: {
     height: 448,
-    margin: theme.spacing.unit,
-  },
+    width: '100%',
+    backgroundColor: '#F0F0F0',
+    overflow: 'auto'
+  }
 });
 
 @observer class HistoryList extends React.Component {
@@ -19,9 +25,17 @@ const styles = theme => ({
     const {classes} = this.props;
 
     return (
-      <div className={classes.root}>
-        <Typography>History List</Typography>
-      </div>
+      <List className={classes.root}>
+      {
+        DataManager.historyList.map(value => { 
+          return (
+            <ListItem dense button key={value.seed}>
+              <ListItemText primary={'Bust : ' + value.number + ' - ' + moment(value.time).format('LLL')} secondary={value.seed}/>
+            </ListItem>              
+          )
+        })
+      }
+    </List>
     )  
   }
 }

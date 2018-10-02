@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
+import { encryption, decipher } from '../lib/crypto'
 import DataManager from 'lib/dataManager'
 
 const styles = theme => ({
@@ -15,7 +16,26 @@ const styles = theme => ({
 });
 
 @observer class Subtab extends React.Component {
-  onChange = (event, value) => DataManager.setSelectSub(value)
+  onChange = async(event, value) => {
+    if(value === 1) await this.reqeustHistory();
+
+    DataManager.setSelectSub(value);
+  }
+
+  reqeustHistory = async() => {
+    DataManager.socket.on('onGameHistory', async(msg) => {
+      DataManager.socket.removeAllListeners('onGameHistory');
+
+      msg = JSON.parse(await decipher(msg));
+
+      console.log('onGameHistory', msg);
+
+      DataManager.historys.clear();
+      DataManager.setHistory(msg);
+    });
+
+    DataManager.socket.emit('onGameHistory', await encryption({start: 10, count: 10}));
+  }
 
   render() {
     const {classes} = this.props;

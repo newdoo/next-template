@@ -3,10 +3,7 @@
 인스톨 및 실행:
 
 ```bash
-npm install
-npm run dev
-npm run build
-npm run start <- 릴리즈
+npm run dev:web
 ```
 
 이미지 파일
@@ -14,10 +11,6 @@ src/client/static
 
 클라이언트
 src/client
-
-이더리움 솔리디티
-소스폴더 : contracts 
-빌드폴더 : build
 
 서버
 src/server

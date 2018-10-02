@@ -1,5 +1,7 @@
 import React from 'react'
 import io from 'socket.io-client'
+import { observer } from 'mobx-react'
+import { observable, action, computed } from 'mobx'
 
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
@@ -8,29 +10,37 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItem'
 import Avatar from '@material-ui/core/Avatar'
-import Paper from '@material-ui/core/Paper'
 
 import { encryption, decipher } from '../lib/crypto'
 import config from '../../common/config.json'
+import DataManager from '../lib/dataManager'
 
 const styles = theme => ({
-  root: {
-    height: '100%',
-    margin: theme.spacing.unit,
-  },
   input: {
     margin: theme.spacing.unit,
-    width: '99%'
+    width: '98%'
   },
-  chattingList: {
+  root: {
     width: '100%',
     height: 400,
-    backgroundColor: '#D9D9D9'
+    backgroundColor: '#F0F0F0',
+    overflow: 'auto'
+  },
+  avatar: {
+    margin: 0,
+    width: 20,
+    height: 20,
+  },
+  item: {
+    color: '#E9673C',
   }
 });
 
-class Chatting extends React.Component {
-  state = {message: []};
+@observer class Chatting extends React.Component {
+  @observable map = new Map();
+
+  @action add = msg => this.map.set(msg.id, msg)
+  @computed get message() {return Array.from(this.map.values())}
 
   componentDidMount = async() => {
     this.socket = io(config[process.env.NODE_ENV].chattingURL);
@@ -40,7 +50,7 @@ class Chatting extends React.Component {
 
   onChattingMessage = async(msg) => {
     msg = JSON.parse(await decipher(msg));
-    this.setState({message: this.state.message.concat(msg)});
+    this.add({id: this.message.length, ...msg});
   }
 
   onSendMessage = async(event) => {
@@ -50,8 +60,8 @@ class Chatting extends React.Component {
       if(message === '') return;
       event.target.value = '';
 
-      this.socket.emit('onChattingMessage', await encryption({channel: navigator.language, nick: 'no', message}));
-      this.setState({message: this.state.message.concat({nick: 'no', message})});
+      this.socket.emit('onChattingMessage', await encryption({channel: navigator.language, nick: DataManager.nick(), message}));
+      this.add({id: this.message.length, nick: DataManager.nick(), message});
     }
   }
 
@@ -59,19 +69,20 @@ class Chatting extends React.Component {
     const {classes} = this.props;
 
     return (
-      <div className={classes.root}>
-        <div className={classes.chattingList}>
-          <List>
-            {this.state.message.map(value => { console.log(value);
-              <ListItem key={value} dense>
-                <Avatar alt='Remy Sharp' src='/static/images/remy.jpg' />
-                <ListItemText primary={value.nick + ' : ' + value.message}/>
-              </ListItem>
-            })}
-          </List>
-        </div>
-        <Input className={classes.input} placeholder='enter message' inputProps={{'aria-label': 'Description'}} onKeyPress={this.onSendMessage}/>
-      </div>
+      <React.Fragment>
+        <List className={classes.root}>
+        {
+          this.message.map(value => {
+              return (
+                <ListItem dense key={value.id}>
+                  <ListItemText primary={value.nick + ' : ' + value.message}/>
+                </ListItem>
+              )
+            })
+          }
+        </List>
+        <Input className={classes.input} disabled={DataManager.nick() === '' ? true : false}placeholder='enter message' inputProps={{'aria-label': 'Description'}} onKeyPress={this.onSendMessage}/>
+      </React.Fragment>
     )  
   }
 }

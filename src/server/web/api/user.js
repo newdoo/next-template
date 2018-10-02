@@ -4,17 +4,16 @@ const moment = require('moment')
 
 const hexists = async(key, field) => await redis.hexists(key, field) === 0 ? false : true
 const exists = async(key) => await redis.exists(key) === 0 ? false : true
-const empty = {bit: 0, eth: 0}
 
 const create = async(data) => { 
   try {
     if(data.pass === '') return {result: 'pass'};
     if(await hexists('user', data.nick) === true) return {result: 'exists nick'};
 
-    const result = await redis.hset('user', data.nick, {balance: empty});
+    const result = await redis.hset('user', data.nick, {balance: 0});
     await redis.set('user.pass', data.pass);
 
-    return {result, balance: empty, nick: data.nick};  
+    return {result, balance: 0, nick: data.nick};  
 
   } catch (e) {
     return {result: 'redis error'};
@@ -24,7 +23,7 @@ const create = async(data) => {
 const info = async(data) => {
   try {
     const result = await redis.hget('user', data.nick);
-    return result === null ? {result: 'no nick', balance: empty} : {result: 'ok', balance: result.balance, nick: data.nick};
+    return result === null ? {result: 'no nick', balance: 0} : {result: 'ok', balance: result.balance, nick: data.nick};
   } catch (e) {
     return {result: 'redis error'};
   }
@@ -45,7 +44,9 @@ const login = async(data) => {
     await redis.expireat('login.' + uuid, moment().add(1, 'minute').unix());
     
     const info = await redis.hget('user', data.nick);
-    return {result, uuid, nick: data.nick, balance: info.balance};
+    // 임시로 돈 1000000 
+    return {result, uuid, nick: data.nick, balance: 1000000};
+    //return {result, uuid, nick: data.nick, balance: info.balance};
 
   } catch (e) {
     return {result: 'redis error'};

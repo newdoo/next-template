@@ -31,7 +31,6 @@ const styles = theme => ({
   @observable remainTime = '0.0';
   @observable result = 0;
 
-  history = [];
   bustInterval = null;
 
   componentDidMount = async() => {
@@ -44,8 +43,11 @@ const styles = theme => ({
     msg = JSON.parse(await decipher(msg));
 
     this.updateGameState(msg.roundInfo);
-    DataManager.setStopList(msg.stops);
-    DataManager.setBettingList(msg.bettings);
+
+    console.log('onGameEnter', msg.stops, msg.bettings);
+
+    //DataManager.setStopList(msg.stops);
+    msg.bettings.forEach(i => DataManager.addBettingData({nick: i.nick, state: 'betting', ...i}))
   }
 
   onGameInfo = async(msg) => {
@@ -55,6 +57,7 @@ const styles = theme => ({
   updateGameState = msg => {
     console.log(msg);
 
+    if(DataManager.state === msg.state) return;
     DataManager.state = msg.state;
 
     if(msg.state === 'ready') {
@@ -68,8 +71,7 @@ const styles = theme => ({
   }
 
   onReady = msg => {
-    DataManager.setBetting(false);
-    DataManager.bettingList = [];
+    DataManager.bettings.clear();
 
     const interval = setInterval(() => {
       const now = moment().utc();
@@ -95,18 +97,7 @@ const styles = theme => ({
   onBust = (msg) => {
     clearInterval(this.bustInterval);
     this.result = msg.number.toFixed(2);
-    this.history = this.history.concat(msg);
-  }
-
-  reqeustHistory = async() => {
-    DataManager.socket.on('onGameHistory', async(msg) => {
-      DataManager.socket.removeAllListeners('onGameHistory');
-
-      msg = JSON.parse(await decipher(msg));
-      console.log(msg);
-    });
-
-    DataManager.socket.emit('onGameHistory', await encryption({start: 10, count: 10}));
+    //DataManager.history = DataManager.history.concat(msg);
   }
 
   none = () => {

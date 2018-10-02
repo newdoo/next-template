@@ -8,6 +8,7 @@
     "animejs": "^2.2.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "bip39": "^2.5.0",
+    "classnames": "^2.2.6",
     "compression": "^1.7.2",
     "crypto-promise": "^2.1.0",
     "express": "^4.16.3",

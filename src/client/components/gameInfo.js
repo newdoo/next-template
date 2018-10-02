@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { observable } from 'mobx'
+import { observable, action } from 'mobx'
+import moment from 'moment'
 
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
@@ -11,7 +12,8 @@ import Button from '@material-ui/core/Button'
 import Register from 'components/register'
 import DataManager from 'lib/dataManager'
 import { encryption, decipher } from '../lib/crypto'
-
+import config from '../../common/config.json'
+const easing = require('../../common/easing')
 
 const styles = theme => ({
   root: {
@@ -28,7 +30,6 @@ const styles = theme => ({
 
 
 @observer class GameInfo extends React.Component {
-  @observable bettingButtonEnable = true;
   @observable oneClick = false;
 
   componentDidMount = async() => {
@@ -42,10 +43,22 @@ const styles = theme => ({
 
     console.log('onGameBetting', msg);
 
-    if(msg.nick === DataManager.nick)
-      DataManager.setBetting(true);
+    DataManager.addBettingData({nick: msg.nick, state: 'betting', ...msg});
+    const time = moment().utc().valueOf();
+    const start = 0;
+    const dest = config.bettingValue;
+    const balance = DataManager.balance();
 
-    DataManager.bettingList = DataManager.bettingList.concat(msg);
+    const interval = setInterval(() => {
+      const now = moment().utc();
+      const value = easing.easeInSine(now.diff(moment(time)), start, dest, 500);
+      DataManager.setUser(DataManager.nick(), balance - Number(value).toFixed(0));
+
+      if(value >= dest) {
+        clearInterval(interval);
+        DataManager.setUser(DataManager.nick(), Number(balance - config.bettingValue));
+      }
+    }, 10);
   }
 
   onGameStop = async(msg) => {
@@ -54,22 +67,27 @@ const styles = theme => ({
 
     console.log('onGameStop', msg);
 
-    if(msg.nick === DataManager.nick)
-      DataManager.setBetting(false);
+    // 해당 유저의 배팅 기록이 없다.
+    if(DataManager.bettings.has(msg.nick) === false) return;
 
-    DataManager.stopList = DataManager.stopList.concat(msg);
+    DataManager.bettings.delete(msg.nick);
+    DataManager.addBettingData({nick: msg.nick, state: 'stop', distance: Number(msg.time), ...msg});
   }
 
   onBet = async() => {
-    if(DataManager.nick === '') return;
     this.oneClick = true;
-    DataManager.socket.emit('onGameBetting', await encryption({nick: DataManager.nick}));
+    DataManager.socket.emit('onGameBetting', await encryption({nick: DataManager.nick()}));
   }
 
   onStop = async() => {
-    if(DataManager.isBetting === false) return;
     this.oneClick = true;
-    DataManager.socket.emit('onGameStop', await encryption({nick: DataManager.nick}));
+    DataManager.socket.emit('onGameStop', await encryption({nick: DataManager.nick()}));
+  }
+
+  @action isStop = () => {
+    const item = DataManager.bettingList.find(i => DataManager.nick() === i.nick);
+    if(item === undefined) return true;
+    return item.state === 'stop' ? true : false;
   }
 
   render() {
@@ -78,16 +96,16 @@ const styles = theme => ({
     return (
       <Paper className={classes.root}>
         <Typography>Game Info</Typography>
-        {DataManager.nick === '' ? <Register/> : 
+        {DataManager.nick() === '' ? <Register/> : 
           <div className={classes.content}>
-            <Typography>Total : {DataManager.bettingList.length}</Typography>
-            <Typography>Bet : {DataManager.bettingList.length * 100} bet</Typography>
-
+            <Typography>my balance : {DataManager.balance()}</Typography>
+            <Typography>players : {DataManager.bettingList.length}</Typography>
+            <Typography>bet : {DataManager.bettingList.length * 100}</Typography>
             {
               DataManager.state === 'ready' ? 
-              <Button className={classes.button} variant='outlined' onClick={this.onBet} disabled={this.onClick || DataManager.isBetting}>Bet</Button> : 
+              <Button className={classes.button} variant='outlined' onClick={this.onBet} disabled={this.onClick || DataManager.bettings.has(DataManager.nick())}>Bet</Button> : 
               DataManager.state === 'start' ?
-              <Button className={classes.button} variant='outlined' onClick={this.onStop} disabled={this.onClick || !DataManager.isBetting}>Stop</Button> :
+              <Button className={classes.button} variant='outlined' onClick={this.onStop} disabled={this.onClick || this.isStop()}>Stop</Button> :
               ''
             }
           </div>
