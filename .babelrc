@@ -3,8 +3,6 @@
     "next/babel"
   ],
   "plugins": [
-    "transform-decorators-legacy",
-    "transform-class-properties",
     [
       "module-resolver",
       {

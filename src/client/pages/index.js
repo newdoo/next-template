@@ -7,8 +7,10 @@ import App from "components/app"
 import Scene from './scene'
 import UIButton from 'ui/uiButton'
 
-const styles = theme => ({
-});
+import styles from "../styles/base.scss"
+import classNames from 'classnames/bind'
+
+const cx = classNames.bind(styles);
 
 class Index extends Scene {
   componentDidMount = async() => {
@@ -25,6 +27,8 @@ class Index extends Scene {
             NEXT-TEMPLATE
           </Typography>
         </Fade>
+
+        <div className={cx('example')}>Hello World!</div>
 
         <UIButton link='stop'>GO</UIButton>
         <UIButton link='blog'>Blog</UIButton>
