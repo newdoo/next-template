@@ -5,7 +5,7 @@ import Fade from '@material-ui/core/Fade'
 
 import App from "components/app"
 import Scene from './scene'
-import UIButton from 'ui/uiButton'
+import UIButton from 'components/common/UIButton'
 
 import styles from "styles/base.scss"
 import classNames from 'classnames/bind'

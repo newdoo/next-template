@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Header.scss';
 import classNames from 'classnames/bind';
 import { Link } from 'common/routes';
+import UIButton from 'components/common/UIButton';
 
 const cx = classNames.bind(styles);
 
@@ -12,8 +13,7 @@ const Header = () => (
         <Link route='home' passHref><a>Next-Template</a></Link>
       </div>
       <div className={cx('right')}>
-      { /* 조건에 따라 버튼 렌더링 */ }
-        오른쪽
+        <UIButton theme="outline" radius="5px" /*link="editor"*/>새 포스트</UIButton>
       </div>
     </div>
   </header>
