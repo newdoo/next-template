@@ -7,7 +7,7 @@ import App from "components/app"
 import Scene from './scene'
 import UIButton from 'ui/uiButton'
 
-import styles from "../styles/base.scss"
+import styles from "styles/base.scss"
 import classNames from 'classnames/bind'
 
 const cx = classNames.bind(styles);
@@ -31,7 +31,7 @@ class Index extends Scene {
         <div className={cx('example')}>Hello World!</div>
 
         <UIButton link='stop'>GO</UIButton>
-        <UIButton link='blog'>Blog</UIButton>
+        <UIButton link='list'>Blog</UIButton>
       </App>
     )  
   }

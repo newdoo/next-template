@@ -16,6 +16,7 @@
           "ui": "./src/client/ui",
           "lib": "./src/client/lib",
           "common": "./src/common",
+          "pages": "./src/client/pages",
           "src": "./src"
         }
       }
