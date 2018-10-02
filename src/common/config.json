@@ -10,9 +10,9 @@
     "mongodb": "mongodb://admin:!numix0083!@192.168.1.182:20083,192.168.1.182:20085/admin?replicaSet=rs1"
   },
   "development": {
-    "serverURL": "http://192.168.1.55:9999/api",
-    "chattingURL": "http://192.168.1.55:12345",
-    "gameStopURL": "http://192.168.1.55:12346",
+    "serverURL": "http://localhost:9999/api",
+    "chattingURL": "http://localhost:12345",
+    "gameStopURL": "http://localhost:12346",
     "bitcoinNetwork": 3,
     "mongodb": "mongodb://localhost:27017"
   },

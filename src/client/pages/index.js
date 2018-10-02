@@ -27,6 +27,7 @@ class Index extends Scene {
         </Fade>
 
         <UIButton link='stop'>GO</UIButton>
+        <UIButton link='blog'>Blog</UIButton>
       </App>
     )  
   }
