@@ -10,11 +10,11 @@ import Paper from '@material-ui/core/Paper'
 import Zoom from '@material-ui/core/Zoom'
 import Fade from '@material-ui/core/Fade'
 
-import config from 'common/config.json'
-import { encryption, decipher } from 'lib/crypto'
-import { setGameStopBettingList, setGameStopState, } from 'src/client/actions'
-import Socket from 'lib/socket'
-const easing = require('common/easing')
+import config from '@common/config.json'
+import { encryption, decipher } from '@lib/crypto'
+import { setGameStopBettingList, setGameStopState, } from '../../actions'
+import Socket from '@lib/socket'
+const easing = require('@common/easing')
 
 const sleep = ms => new Promise(res => setTimeout(res, ms))
 

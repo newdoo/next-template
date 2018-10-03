@@ -8,12 +8,12 @@ import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 
-import Register from 'components/register'
-import { encryption, decipher } from 'lib/crypto'
-import config from 'common/config.json'
-import Socket from 'lib/socket'
+import Register from '@components/register'
+import { encryption, decipher } from '@lib/crypto'
+import config from '@common/config.json'
+import Socket from '@lib/socket'
 import { setBalance, setGameStopBettingList } from '../../actions'
-import updateBalance from 'lib/updateBalance'
+import updateBalance from '@lib/updateBalance'
 
 const styles = theme => ({
   root: {

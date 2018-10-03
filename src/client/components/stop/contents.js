@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 
-import Network from 'lib/network'
-import SubTab from 'components/stop/subtab'
-import Chatting from 'components/chatting'
-import History from 'components/stop/history'
+import Network from '@lib/network'
+import SubTab from '@components/stop/subtab'
+import Chatting from '@components/chatting'
+import History from '@components/stop/history'
 
 const styles = theme => ({
   root: {

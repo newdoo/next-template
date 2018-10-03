@@ -7,9 +7,9 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 
-import { userCreate, userLogin } from 'lib/user'
+import { userCreate, userLogin } from '@lib/user'
 import { setUserData, setBalance } from '../actions'
-import updateBalance from 'lib/updateBalance'
+import updateBalance from '@lib/updateBalance'
 
 const styles = theme => ({
   textField: {

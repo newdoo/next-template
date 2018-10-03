@@ -10,8 +10,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 
-import Cashout from 'common/cashout'
-import Network from 'lib/network'
+import Cashout from '@common/cashout'
+import Network from '@lib/network'
 
 const styles = theme => ({
   root: {

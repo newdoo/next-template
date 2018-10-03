@@ -8,8 +8,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-import Network from 'lib/network'
-import HistoryPopup from 'components/stop/history.popup'
+import Network from '@lib/network'
+import HistoryPopup from '@components/stop/history.popup'
 
 const styles = theme => ({
   root: {

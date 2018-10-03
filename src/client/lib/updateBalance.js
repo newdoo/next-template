@@ -1,5 +1,5 @@
 import moment from 'moment'
-const easing = require('common/easing')
+const easing = require('@common/easing')
 
 let interval = null;
 
