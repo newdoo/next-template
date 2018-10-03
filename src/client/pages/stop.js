@@ -1,12 +1,12 @@
 import Fade from '@material-ui/core/Fade'
 import Grid from '@material-ui/core/Grid'
 
-import App from 'components/app'
+import App from '@components/app'
 import Scene from './scene'
-import BettingInfo from 'components/stop/bettingInfo'
-import GameInfo from 'components/stop/gameInfo'
-import Contents from 'components/stop/contents'
-import Game from 'components/stop/game'
+import BettingInfo from '@components/stop/bettingInfo'
+import GameInfo from '@components/stop/gameInfo'
+import Contents from '@components/stop/contents'
+import Game from '@components/stop/game'
 
 export default class Stop extends Scene {
   state = {};

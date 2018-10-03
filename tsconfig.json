@@ -1,6 +1,18 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "allowJs": true
-  }
+    "allowJs": true,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@components/*" : ["src/client/components/*"],
+      "@styles/*"     : ["src/client/styles/*"],
+      "@shapes/*"     : ["src/client/shapes/*"],
+      "@lib/*"        : ["src/client/lib/*"],
+      "@pages/*"      : ["src/client/pages/*"],
+      "@common/*"     : ["src/common/*"],
+      "@server/*"     : ["src/server/*"],
+      "@src/*"        : ["src/*"]
+    },
+  },
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { mobileCheck } from 'lib/device'
+import { mobileCheck } from '@lib/device'
 
 export default class Scene extends React.Component {
   state = {loading: false, isMobile: false};

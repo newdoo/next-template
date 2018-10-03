@@ -10,14 +10,14 @@
           "./"
         ],
         "alias": {
-          "components": "./src/client/components",
-          "styles": "./src/client/styles",
-          "shapes": "./src/client/shapes",
-          "ui": "./src/client/ui",
-          "lib": "./src/client/lib",
-          "common": "./src/common",
-          "pages": "./src/client/pages",
-          "src": "./src"
+          "@components"  : "./src/client/components",
+          "@styles"      : "./src/client/styles",
+          "@shapes"      : "./src/client/shapes",
+          "@lib"         : "./src/client/lib",
+          "@pages"       : "./src/client/pages",
+          "@common"      : "./src/common",
+          "@server"      : "./src/server",
+          "@src"         : "./src"
         }
       }
     ]

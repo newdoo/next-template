@@ -3,11 +3,11 @@ import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Fade from '@material-ui/core/Fade'
 
-import App from "components/app"
 import Scene from './scene'
-import UIButton from 'components/common/UIButton'
+import App from "@components/app"
+import UIButton from '@components/common/UIButton'
 
-import styles from "styles/base.scss"
+import styles from "@styles/base.scss"
 import classNames from 'classnames/bind'
 
 const cx = classNames.bind(styles);

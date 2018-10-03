@@ -1,4 +1,4 @@
-import { Link } from 'common/routes'
+import { Link } from '@common/routes'
 import Button from '@material-ui/core/Button'
 import styles from './UIButton.scss'
 import classNames from 'classnames/bind'

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Footer.scss';
 import classNames from 'classnames/bind';
-import { Link } from 'common/routes';
+import { Link } from '@common/routes';
 
 const cx = classNames.bind(styles);
 

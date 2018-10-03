@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './Header.scss';
 import classNames from 'classnames/bind';
-import { Link } from 'common/routes';
-import UIButton from 'components/common/UIButton';
+import { Link } from '@common/routes';
+import UIButton from '@components/common/UIButton';
 
 const cx = classNames.bind(styles);
 
