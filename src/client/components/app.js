@@ -4,7 +4,6 @@ import { createStore } from 'redux'
 import { Provider  } from 'react-redux'
 
 import PropTypes from 'prop-types'
-// import { withStyles } from '@material-ui/core/styles'
 
 import withRoot from '@lib/withRoot'
 import reducers from '../reducers'
