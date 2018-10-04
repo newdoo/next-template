@@ -5,19 +5,24 @@ import UIButton from '@components/common/UIButton';
 
 const cx = classNames.bind(styles);
 
-const Pagination = () => (
+const Pagination = ({page, lastPage, tag}) => {
+  const createPagePath = (page) => {
+    return tag ? `/tag/${tag}/${page}` : `/page/${page}`;
+  }
 
-  <div className={cx('pagination')}>
-    <UIButton disabled>
-      이전 페이지
-    </UIButton>
-    <div className={cx('number')}>
-      페이지 1
+  return (
+    <div className={cx('pagination')}>
+      <UIButton disabled={page === 1} link={createPagePath(page -1)}>
+        이전 페이지
+      </UIButton>
+      <div className={cx('number')}>
+        페이지 {page}
+      </div>
+      <UIButton disabled={page===lastPage} link={createPagePath(page+1)}>
+        다음 페이지
+      </UIButton>
     </div>
-    <UIButton>
-      다음 페이지
-    </UIButton>
-  </div>
-);
+  );
+};
 
 export default Pagination;
