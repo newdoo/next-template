@@ -4,23 +4,16 @@ import { createStore } from 'redux'
 import { Provider  } from 'react-redux'
 
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
+// import { withStyles } from '@material-ui/core/styles'
 
 import withRoot from '@lib/withRoot'
 import reducers from '../reducers'
 
-const store = createStore(reducers)
+import configure from '@store/configure'
 
-const styles = {
-  root: {
-    //background: '#263238',
-  },
-  view: {
-    paddingTop: '80px',
-    width: '100%',
-    margin: 'auto',
-    textAlign: 'center',
-  }
+let store = null;
+if(process.browser) {
+  store = configure();
 }
 
 class App extends React.Component {
@@ -37,9 +30,9 @@ class App extends React.Component {
     return this.state.loading === false ? '' : 
     (
       <Provider store = {store}>
-        <div className={classes.root} style={{background: 'linear-gradient(to right bottom, #A0A0A0, #D0D0D0)', minHeight: '100vh'}}>
+        <div style={{background: 'linear-gradient(to right bottom, #A0A0A0, #D0D0D0)', minHeight: '100vh'}}>
           <main>
-            <div className={classes.view}>
+            <div>
               {this.props.children}
             </div>
           </main>
@@ -53,4 +46,4 @@ App.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withRoot(withStyles(styles)(App));
+export default withRoot(App);

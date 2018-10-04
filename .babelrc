@@ -15,6 +15,8 @@
           "@shapes"      : "./src/client/shapes",
           "@lib"         : "./src/client/lib",
           "@pages"       : "./src/client/pages",
+          "@store"       : "./src/client/store",
+          "@containers"  : "./src/client/containers",
           "@common"      : "./src/common",
           "@server"      : "./src/server",
           "@src"         : "./src"

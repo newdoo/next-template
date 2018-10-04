@@ -1,5 +1,6 @@
 import { USER_DATA, USER_BALANCE, GAME_STOP_DATA, GAME_STOP_STATE, GAME_STOP_BETTING_LIST } from '../actions'
 import { combineReducers } from 'redux'
+import * as modules from '@store/modules'
 
 const user = (state = {nick: '', balance: 0, account: ''}, action) => {
   switch(action.type) {
@@ -25,9 +26,14 @@ const stop = (state = {bust: 0, state: 'none', bettings: []}, action) => {
   }
 };
 
+const reducers = combineReducers(modules);
+
+/*
 const reducers = combineReducers({
-  user,
-  stop
+  //user,
+  //stop,
+  modules,
 });
+*/
 
 export default reducers
