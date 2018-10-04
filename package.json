@@ -48,7 +48,7 @@
     "web3": "^1.0.0-beta.34"
   },
   "scripts": {
-    "dev:web": "cross-env NODE_ENV=development nodemon --watch src/server/ src/server/web/main.js",
+    "dev:web": "cross-env NODE_ENV=development node src/server/web/main.js",
     "dev:chatting": "cross-env NODE_ENV=development nodemon --watch src/server/ src/server/chatting/main.js",
     "dev:stop": "cross-env NODE_ENV=development nodemon --watch src/server/ src/server/game/stop.js",
     "deploy": "next build src/client && cross-env NODE_ENV=production node src/server/web/main.js"

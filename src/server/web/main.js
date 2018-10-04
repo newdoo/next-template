@@ -15,17 +15,6 @@ const trustIP = require('../utils/trustIP')
 const conn = require('../mongoDB/conn')
 conn();
 
-// const aaa = require('blockchain.info/api')
-// var MyWallet = require('blockchain.info/MyWallet')
-// var wallet = new MyWallet('b9b41394-6004-4e62-988d-c7f2c9163efe', 'bug085200!', {apiCode: '123', apiHost: aaa.apiUrlForNetwork(3)})
-// wallet.getBalance().then(function (response) { console.log('My balance is %d!', response.balance); })
-
-// MyWallet.create('1234567890', '123', {label: 'main address', apiHost: aaa.apiUrlForNetwork(3)}).then(result => {
-//  console.log(result);
-// }).catch(e => {
-//  console.log(e);
-// })
-
 app.prepare().then(() => {  
   const server = express();
   server.use(express.urlencoded({extended : true}));
