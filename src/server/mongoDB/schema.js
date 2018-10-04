@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const moment = require('moment')
+const postSchema = require('./models/post')
 
 const userSchema = new mongoose.Schema({
   nick: {type: String, index: true, required: true, unique: true},
@@ -47,4 +48,5 @@ module.exports = {
   depositSchema: mongoose.model('deposit', depositSchema),
   logSchema: mongoose.model('log', logSchema),
   chattingSchema: mongoose.model('chatting', chattingSchema),
+  postSchema: postSchema
 }

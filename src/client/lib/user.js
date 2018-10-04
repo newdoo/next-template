@@ -8,6 +8,6 @@ export const userCreate = async(account, nick, pass) => await network('user', 'c
 export const userInfo = async(nick) => await network('user', 'info', {nick})
 export const userLogin = async(account, pass) => await network('user', 'login', {account, pass: await make(pass)})
 
-export const writePost = async(title, body, tags) => await network('blog','writePost',{title, body, tags})
+export const writePost = async(post) => await network('blog','writePost',{post})
 export const getPost = async(id) => await network('blog','getPost',{id})
 export const editPost = async(id, title, body, tags) => await network('blog','editPost',{id, title, body, tags})

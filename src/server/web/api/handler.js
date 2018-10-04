@@ -1,7 +1,7 @@
 const crypto = require('../../utils/crypto')
 const trustIP = require('../../utils/trustIP')
 
-const router = { history: require('./history'), user: require('./user'), wallet: require('./wallet') }
+const router = { history: require('./history'), user: require('./user'), wallet: require('./wallet'), blog: require('./blog') }
 const permission = {}
 
 const toJson = data => JSON.parse(data)

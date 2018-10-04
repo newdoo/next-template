@@ -25,7 +25,6 @@ class App extends React.Component {
   }
 
   render() {
-    const {classes} = this.props;
 
     return this.state.loading === false ? '' : 
     (
@@ -41,9 +40,5 @@ class App extends React.Component {
     )
   }
 }
-
-App.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withRoot(App);
