@@ -17,5 +17,12 @@ const writePost = async(msg) => {
   return {'result': 'ok', 'data': post };
 }
 
-const handler = { writePost }
+const getPost = async(msg) => {
+
+  const post = await db.postSchema.findById(msg.id).exec();
+
+  return {'result': 'ok', 'data': post};
+}
+
+const handler = { writePost, getPost }
 module.exports = recv => handler[recv.type](recv.data)

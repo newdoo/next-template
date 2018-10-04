@@ -30,8 +30,8 @@ class Index extends Scene {
 
         <div className={cx('example')}>Hello World!</div>
 
-        <UIButton link='stop'>GO</UIButton>
-        <UIButton link='list'>Blog</UIButton>
+        <UIButton link='/stop'>GO</UIButton>
+        <UIButton link='/list'>Blog</UIButton>
       </App>
     )  
   }

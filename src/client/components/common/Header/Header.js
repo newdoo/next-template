@@ -13,7 +13,7 @@ const Header = () => (
         <Link route='home' passHref><a>Next-Template</a></Link>
       </div>
       <div className={cx('right')}>
-        <UIButton theme="outline" radius="5px" /*link="editor"*/>새 포스트</UIButton>
+        <UIButton theme="outline" radius="5px" link="/editor">새 포스트</UIButton>
       </div>
     </div>
   </header>

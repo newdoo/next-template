@@ -10,4 +10,6 @@ export const userLogin = async(account, pass) => await network('user', 'login', 
 
 export const writePost = async(post) => await network('blog','writePost',{post})
 export const getPost = async(id) => await network('blog','getPost',{id})
+export const getPostList = async(tag, page) => network('blog','getPostList',{tag, page})
 export const editPost = async(id, title, body, tags) => await network('blog','editPost',{id, title, body, tags})
+export const removePost = async(id) => await network('blog','removePost',{id})
