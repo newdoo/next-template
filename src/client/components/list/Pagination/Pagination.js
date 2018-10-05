@@ -7,18 +7,21 @@ const cx = classNames.bind(styles);
 
 const Pagination = ({page, lastPage, tag}) => {
   const createPagePath = (page) => {
-    return tag ? `/tag/${tag}/${page}` : `/page/${page}`;
+    return tag ? `/tag/${tag}/${page}` : `ListPage2`;
+  }
+  const createpageParams = (page) => {
+    return tag ? `/tag/${tag}/${page}` : {page:page};
   }
 
   return (
     <div className={cx('pagination')}>
-      <UIButton disabled={page === 1} link={createPagePath(page -1)}>
+      <UIButton disabled={page === 1} link={createPagePath(page-1)} params={createpageParams(page-1)}>
         이전 페이지
       </UIButton>
       <div className={cx('number')}>
         페이지 {page}
       </div>
-      <UIButton disabled={page===lastPage} link={createPagePath(page+1)}>
+      <UIButton disabled={page===lastPage} link={createPagePath(page+1)} params={createpageParams(page+1)}>
         다음 페이지
       </UIButton>
     </div>

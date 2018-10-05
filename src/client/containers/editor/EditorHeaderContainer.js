@@ -36,7 +36,8 @@ class EditorHeaderContainer extends Component {
       await EditorActions.writePost(post);
       // 페이지를 이동시킵니다. 주의: postId는 상단에서 레퍼런스를 만들지 말고
       // 이 자리에서 this.props.postId를 조회해 주어야 합니다(현재 값을 불러오기 위함).
-      Router.pushRoute(`/post/${this.props.postId}`);
+      //Router.pushRoute(`/post/${this.props.postId}`);
+      Router.pushRoute('post', {id: this.props.postId});
     } catch (e) {
       console.log(e);
     }
