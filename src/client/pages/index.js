@@ -31,6 +31,7 @@ class Index extends Scene {
         <UIButton link='stop'>GO</UIButton>
         <UIButton link='list'>Blog</UIButton>
         <UIButton link='test'>Test</UIButton>
+        <UIButton link='bustabit'>Bustabit</UIButton>
       </App>
     )  
   }
