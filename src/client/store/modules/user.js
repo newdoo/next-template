@@ -22,5 +22,12 @@ const initialState = Map({
 
 // reducer
 export default handleActions({
-
+  [USER_DATA]: (state, action) => {
+    console.log(action);
+    return state.set('user', {nick: action.user.nick, balance: action.user.balance, account: action.user.account});
+  },
+  [USER_BALANCE]: (state, action) => {
+    console.log(action);
+    return state.set('user', {balance: action.balance});
+  },
 }, initialState)

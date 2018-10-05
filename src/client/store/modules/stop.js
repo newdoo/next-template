@@ -34,7 +34,8 @@ export default handleActions({
     return state.set('stop', {state: action.payload});
   },
   [GAME_STOP_BETTING_LIST]: (state, action) => {
-    return state.set('stop', {bettings: action.bettings});
+    console.log(action);
+    return state.set('stop', {bettings: action.payload});
   },
 
 }, initialState)

@@ -3,7 +3,6 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 
-import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Paper from '@material-ui/core/Paper'
@@ -12,7 +11,6 @@ import Fade from '@material-ui/core/Fade'
 
 import config from '@common/config.json'
 import { encryption, decipher } from '@lib/crypto'
-import { setGameStopBettingList, setGameStopState, } from '../../actions'
 import Socket from '@lib/socket'
 const easing = require('@common/easing')
 

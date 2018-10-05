@@ -6,6 +6,7 @@ import Fade from '@material-ui/core/Fade'
 import Grid from '@material-ui/core/Grid'
 
 import GameContainer from '@containers/bustabit/GameContainer'
+import GameInfoContainer from '@containers/bustabit/GameInfoContainer';
 
 class BustaPage extends Scene {
   state = {};
@@ -15,7 +16,6 @@ class BustaPage extends Scene {
   }
 
   render() {
-    const {classes} = this.props;
 
     return (
       <App>
@@ -27,7 +27,7 @@ class BustaPage extends Scene {
                   <GameContainer isMobile={this.state.isMobile}/>
                 </Grid>
                 <Grid item md={3}>
-                  { /* <GameInfo/> */ }
+                  <GameInfoContainer/>
                 </Grid>
               </Grid>
               <Grid item md>
