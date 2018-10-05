@@ -1,3 +1,7 @@
 @import 'lib/all';
 
-$breakpoints: (small: 320px, medium: 768px, large: 1024px, wide: 1400px);
+$small-width: 320px;
+$medium-width: 768px;
+$large-width: 1024px;
+$wide-width: 1400px;
+$breakpoints: (small: $small-width, medium: $medium-width, large: $large-width, wide: $wide-width);

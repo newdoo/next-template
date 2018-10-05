@@ -8,3 +8,4 @@ routes
 .add('ListPage3','/tag/:tag/:page','ListPage')
 .add('post', '/post/:id', 'PostPage')
 .add('editor', '/editor', 'EditorPage')
+.add('TestPage', '/test', 'TestPage')

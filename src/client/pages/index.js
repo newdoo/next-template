@@ -27,11 +27,10 @@ class Index extends Scene {
             NEXT-TEMPLATE
           </Typography>
         </Fade>
-
         <div className={cx('example')}>Hello World!</div>
-
         <UIButton link='stop'>GO</UIButton>
         <UIButton link='list'>Blog</UIButton>
+        <UIButton link='/test'>Test</UIButton>
       </App>
     )  
   }

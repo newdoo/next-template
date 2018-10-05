@@ -1,0 +1,9 @@
+@import 'utils';
+
+:export {
+  desktopMin:  $large-width + 1px;
+  tabletMin:   $medium-width;
+  tabletMax:   $large-width;
+  phoneMax:  $medium-width - 1px;
+}
+
