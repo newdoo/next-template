@@ -19,7 +19,7 @@ const UIButton = props => {
       data={props.data}>
       {text(props.children)}
     </Button>
-  const render = (link, params) => link === undefined ? button() : <Link route={link} params={params} /*passHref*/>{ button() }</Link>
+  const render = (link, params) => link === undefined ? button() : <Link route={link} params={params} passHref>{ button() }</Link>
 
   return (
     <div>
