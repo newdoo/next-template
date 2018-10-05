@@ -4,12 +4,16 @@ import PageTemplate from '@components/common/PageTemplate';
 import ListWrapper from '@components/list/ListWrapper';
 import ListContainer from '@containers/list/ListContainer';
 
-const ListPage = (props) => {
+import { withRouter } from 'next/router'
 
-  const { page = 1, tag } = props.url.query;
+class ListPage extends React.Component {
 
-  return (
-    <App>
+  render() {
+
+    const { page = 1, tag } = this.props.router.query;
+
+    return (
+      <App>
       <PageTemplate>
         <ListWrapper>
           <ListContainer
@@ -19,8 +23,8 @@ const ListPage = (props) => {
         </ListWrapper>
       </PageTemplate>
     </App>
-    
-  );
-};
+    );
+  }
+}
 
-export default ListPage;
+export default withRouter(ListPage);

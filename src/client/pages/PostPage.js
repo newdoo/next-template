@@ -3,18 +3,22 @@ import App from "@components/app"
 import PageTemplate from '@components/common/PageTemplate';
 import Post from '@containers/post/Post';
 
-const PostPage = props => {
+import { withRouter } from 'next/router'
 
-  const { id } = props.url.query;
+class PostPage extends React.Component {
 
-  return (
-    <App>
-      <PageTemplate>
-        <Post id={id}/>
-      </PageTemplate>
-    </App>
-    
-  );
-};
+  render() {
 
-export default PostPage;
+    const { id } = this.props.router.query;
+
+    return (
+      <App>
+        <PageTemplate>
+          <Post id={id}/>
+        </PageTemplate>
+      </App>
+    );
+  }
+}
+
+export default withRouter(PostPage);
