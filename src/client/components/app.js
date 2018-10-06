@@ -1,12 +1,8 @@
 import React from 'react'
 import moment from 'moment'
-import { createStore } from 'redux'
 import { Provider  } from 'react-redux'
 
-import PropTypes from 'prop-types'
-
 import withRoot from '@lib/withRoot'
-import reducers from '../reducers'
 
 import configure from '@store/configure'
 

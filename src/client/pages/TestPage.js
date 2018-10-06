@@ -3,7 +3,7 @@ import App from "@components/app"
 import PageTemplate from '@components/common/PageTemplate';
 import { DesktopBreakpoint , TabletBreakpoint , PhoneBreakpoint } from '@components/common/responsive_utilities';
 
-const TestPage = props => {
+const TestPage = () => {
 
   return (
     <App>
