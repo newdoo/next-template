@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Fade from '@material-ui/core/Fade'
 
@@ -18,7 +16,6 @@ class Index extends Scene {
   } 
 
   render() {
-    const {classes} = this.props;
 
     return (
       <App>
@@ -36,8 +33,4 @@ class Index extends Scene {
   }
 }
 
-Index.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(Index);
+export default Index;
