@@ -16,12 +16,14 @@ src/client/static
 클라이언트
 src/client
 
+```bash
  src/client/components  컴포넌트(객체)
  src/client/containers  컨테이너, Store 연결
  src/client/lib         라이브러리
  src/client/pages       페이지
  src/client/store       스토어 관리
  src/client/styles      전역 스타일 관리
+```
 
 서버
 src/server
