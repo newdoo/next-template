@@ -1,0 +1,10 @@
+@import 'utils';
+
+.content {
+  &.list {
+    height: 448;
+    width: '100%';
+    background-color: '#F0F0F0';
+    overflow: 'auto';
+  }
+}

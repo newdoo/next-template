@@ -1,0 +1,17 @@
+@import 'utils';
+
+.content {
+  &.list {
+    height: 400px;
+    background-color: $oc-gray-1;
+    overflow: 'auto';
+  }
+
+  .item {
+    margin-left: 10px,
+  }
+
+  .input {
+    
+  }
+}

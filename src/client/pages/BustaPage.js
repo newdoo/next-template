@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid'
 
 import GameContainer from '@containers/bustabit/GameContainer'
 import GameInfoContainer from '@containers/bustabit/GameInfoContainer';
+import ContentContainer from '@containers/bustabit/ContentContainer';
+import BettingInfoContainer from '@containers/bustabit/BettingInfoContainer';
 
 class BustaPage extends Scene {
   state = {};
@@ -31,11 +33,11 @@ class BustaPage extends Scene {
                 </Grid>
               </Grid>
               <Grid item md>
-                { /* <Contents/> */ }
+                <ContentContainer/>
               </Grid>
             </Grid>
             <Grid item md>
-              { /* <BettingInfo/> */ }
+              <BettingInfoContainer/>
             </Grid>
           </Grid>
         </Fade>

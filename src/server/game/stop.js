@@ -24,6 +24,7 @@ const broadcast = async(type, msg) => io.sockets.emit(type, await crypto.encrypt
 const send = async(type, id, msg) => io.to(id).emit(type, await crypto.encryption(msg))
 
 const updateBalance = async(id, account, value, date, kind, data) => {
+  console.log('aa');
   db.userSchema.findOneAndUpdate({account}, {$inc: {balance: value}}, {new: true}).then(user => {
     send('onUpdateBalance', id, {account, balance: user.balance});
 
@@ -60,6 +61,8 @@ io.sockets.on('connection', async(socket) => {
   socket.on('onGameBetting', async(msg) => {
     msg = JSON.parse(await crypto.decipher(msg));
     ping.push(msg.account, msg.time);
+
+    console.log(round.state);
 
     if(round.state !== 'ready') return;
     if(updateBalance(socket.id, msg.account, -Number(config.game.stop.bettingValue), moment().utc().valueOf(), 'game.stop.betting', {value: -config.game.stop.bettingValue}) === false) return;

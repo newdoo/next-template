@@ -1,0 +1,19 @@
+@import 'utils';
+
+.content {
+  &.root {
+    height: 100%;
+  }
+
+  .list {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+
+  .avatar {
+    margin: 0;
+    width: 20;
+    height: 20;
+  }
+}

@@ -28,14 +28,19 @@ const initialState = Map({
 export default handleActions({
   [GAME_STOP_DATA]: (state, action) => {
     console.log(action);
-    return state.set('stop', {bust: action.stop.bust, state: action.stop.action, bettings: action.stop.bettings});
+    return state.set('stop', {bust: action.payload.bust, state: action.payload.action, bettings: action.payload.bettings});
   },
   [GAME_STOP_STATE]: (state, action) => {
-    return state.set('stop', {state: action.payload});
+    console.log(action);
+
+    const { payload: value } = action;
+    return state.setIn(['stop', 'state'], value);
   },
   [GAME_STOP_BETTING_LIST]: (state, action) => {
     console.log(action);
-    return state.set('stop', {bettings: action.payload});
+
+    const { payload: value } = action;
+    return state.setIn(['stop', 'bettings'], value);
   },
 
 }, initialState)

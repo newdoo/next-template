@@ -29,6 +29,9 @@ class GameContainer extends Component {
   componentDidMount = async() => {
     Socket.connect(config[process.env.NODE_ENV].gameStopURL);
     Socket.addListener('onGameInfo', this.onGameInfo);
+
+    //const { UserActions } = this.props;
+    //UserActions.setUserData({nick: 'no'});
   }
 
   onGameInfo = async(msg) => {
@@ -147,10 +150,10 @@ class GameContainer extends Component {
     return (
       <Paper>
         {
-          stop.state === 'none' ? this.none() : 
-          stop.state === 'ready' ? this.ready() : 
-          stop.state === 'start' ? this.start() : 
-          stop.state == 'bust' ? this.bust() : '' 
+          stop.get('state') === 'none' ? this.none() : 
+          stop.get('state') === 'ready' ? this.ready() : 
+          stop.get('state') === 'start' ? this.start() : 
+          stop.get('state') == 'bust' ? this.bust() : '' 
         }
       </Paper>
     )  

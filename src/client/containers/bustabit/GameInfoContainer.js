@@ -1,33 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
 import { bindActionCreators } from 'redux';
+import moment from 'moment'
 
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 
-import Register from '@components/register'
 import { encryption, decipher } from '@lib/crypto'
 import config from '@common/config.json'
 import Socket from '@lib/socket'
 import updateBalance from '@lib/updateBalance'
+import network from '@lib/network'
+
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import * as userActions from '@store/modules/user';
 import * as stopActions from '@store/modules/stop';
 
 class GameInfoContainer extends Component {
-
   state = {oneClick: false}
 
   componentDidMount = async() => {
-    console.log('ccc');
     Socket.addListener('onGameBetting', this.onGameBetting);
     Socket.addListener('onUpdateBalance', this.onUpdateBalance);
   }
 
   onUpdateBalance = async(msg) => {
-    console.log('aaa');
     msg = JSON.parse(await decipher(msg));
     if(this.props.user.account !== msg.account) return;
     
@@ -35,19 +34,20 @@ class GameInfoContainer extends Component {
 
     const { UserActions } = this.props;
     UserActions.setBalance(msg.balance);
-    //this.props.onBalance(msg.balance);
     updateBalance(current, msg.balance, balance => UserActions.setBalance(balance));
+
+    //this.props.onBalance(msg.balance);
+    //updateBalance(current, msg.balance, balance => this.props.onBalance(balance));
   }
 
   onGameBetting = async(msg) => {
-    console.log('bbb');
     this.oneClick = false;
     msg = JSON.parse(await decipher(msg));
     console.log('onGameBetting', msg);
 
     const { StopActions } = this.props;
     StopActions.setGameStopBettingList(msg.bettings);
-    //this.props.onGameStopBettingList(msg.bettings);
+    // this.props.onGameStopBettingList(msg.bettings);
   }
 
   onBet = async() => {
@@ -58,6 +58,16 @@ class GameInfoContainer extends Component {
   onStop = async() => {
     this.oneClick = true;
     Socket.socket.emit('onGameStop', await encryption({nick: this.props.user.nick, account: this.props.user.account, time: moment().utc().valueOf()}));
+  }
+
+  onDeposit = async() => {
+    const result = await network('wallet', 'deposit', {account: this.props.user.account});
+    console.log(result);
+  }
+
+  onWithdraw = async() => {
+    // const result = await network('wallet', 'withdraw', {account: this.props.user.account, balance: 10000000000, address: '1GkeHLKzJLUS1ACpqmhC2uKt7LttGVKJCm'});
+    // console.log(result);
   }
 
   isStop = () => {
@@ -82,18 +92,26 @@ class GameInfoContainer extends Component {
 
   render() {
 
-    console.log(this.props.user.balance);
-    console.log(this.props.user.nick);
+    console.log(this.props.user.userData);
+    console.log(this.props.user);
 
     return (
       <Paper>
-        <Typography>Game Info</Typography>
-        {this.props.user.nick === undefined ? <Register/> : 
+      
+        <Typography>Game Info</Typography>                
+        {this.props.user.userData === null || this.props.user === undefined || this.props.user.userData === 'no session'
+        ?
+          <div align ="center">
+          <Typography>  need Login </Typography>
+          <br></br>
+          <CircularProgress color="secondary" thickness={7} />
+         </div>
+        
+        : 
           <div>
-            <Typography>my balance : {this.numberWithCommas(this.props.user.balance)}</Typography>
+            <Typography>my balance : {this.numberWithCommas(this.props.user.balance.toFixed(2))}</Typography>
             <Typography>players : {this.props.stop.bettings.length}</Typography>
             <Typography>deposit : {this.props.stop.bettings.length * config.game.stop.bettingValue}</Typography>
-
             {
               this.props.stop.state === 'ready' ? 
               <Button variant='outlined' onClick={this.onBet} disabled={this.onClick || this.isReady()}>Bet</Button> : 
@@ -101,8 +119,11 @@ class GameInfoContainer extends Component {
               <Button variant='outlined' onClick={this.onStop} disabled={this.onClick || this.isStop()}>{this.buttonState()}</Button> :
               ''
             }
+            <Button variant='outlined' onClick={this.onDeposit}>deposit</Button>
+            <Button variant='outlined' onClick={this.onWithdraw}>withdraw</Button>
           </div>
         }
+        
       </Paper>
     )  
   }
@@ -118,21 +139,3 @@ export default connect(
     StopActions: bindActionCreators(stopActions, dispatch)
   })
 )(GameInfoContainer);
-
-
-/*
-GameInfo.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-const mapStateToProps = (state) => {return {user: state.user, stop: state.stop}}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onBalance: balance => dispatch(setBalance(balance)),
-    onGameStopBettingList: bettings => dispatch(setGameStopBettingList(bettings)),
-  }
-}
-
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(GameInfo));
-*/
