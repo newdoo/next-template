@@ -3,8 +3,11 @@
 인스톨 및 실행:
 
 ```bash
-npm install
-npm run dev:web
+yarn install
+yarn dev:web
+yarn dev:stop
+yarn dev:chatting
+yarn dev:deploy
 ```
 
 이미지 파일
@@ -17,9 +20,8 @@ src/client
 src/server
 
 사용된 라이브러리
-next.js           서버사이드 react
+next.js           서버사이드 react (v7.0.1)
 material-ui       ui
 crypto-promise    암호화 config.json 참조
 isomorphic-fetch  back-end + eos 와 http 통신
-mobx              redux 대체
 express           back-end용 http web 서버 시작
