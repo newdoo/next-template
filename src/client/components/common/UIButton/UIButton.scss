@@ -15,14 +15,14 @@
     display: inline-flex;
   }
   
-  // default: 파란색 버튼
+  // default: 투명 버튼
   &.default {
-    background: $oc-blue-6;
+    background: transparent;
     &:hover {
-      background: $oc-blue-5;
+      background: transparent;
     }
     &:active {
-      background: $oc-blue-6;
+      background: transparent;
     }
   }
 

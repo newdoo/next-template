@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 const UIButton = props => {
 
-  const borderRadius = () => { return {borderRadius: props.radius}}
+  const borderRadius = () => { return {...props.style, borderRadius: props.radius}}
   const text = children => children === undefined ? '' : children
   const button = () => 
     <Button
@@ -16,7 +16,8 @@ const UIButton = props => {
       color={props.color} 
       style={borderRadius()} 
       onClick={props.disabled ? () => null : props.onClick}
-      data={props.data}>
+      data={props.data}
+      buttonRef={props.buttonRef}>
       {text(props.children)}
     </Button>
   const render = (link, params) => link === undefined ? button() : <Link route={link} params={params} passHref>{ button() }</Link>
