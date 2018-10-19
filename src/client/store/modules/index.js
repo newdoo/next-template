@@ -1,7 +1,19 @@
-export { default as editor } from './editor';
-export { default as list } from './list';
-export { default as post } from './post';
-export { default as user } from './user';
-export { default as stop } from './stop';
-// export { default as base } from './base';
-export { penderReducer as pender } from 'redux-pender';
+import { combineReducers } from 'redux';
+
+import clock from './clock';
+import editor from './editor';
+import list from './list';
+import post from './post';
+import user from './user';
+import stop from './stop';
+import { penderReducer } from 'redux-pender';
+
+export default combineReducers({
+    clock,
+    editor,
+    list,
+    post,
+    user,
+    stop,
+    pender: penderReducer
+});

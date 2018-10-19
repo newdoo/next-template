@@ -19,5 +19,3 @@ if(process.browser) {
 }
 
 export default configure;
-
-
